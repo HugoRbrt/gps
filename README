@@ -1,0 +1,15 @@
+Le repertoire src doit contenir tous les fichiers sources .c (ici, f1.c, f2.c et le programme principal pccmain.c)
+Le répertorie include doit contenir tous les fichiers d'entete .h (icin f1.h, f2.h)
+Le répertoire tests doit contenir tous les fichiers de tests que vious avez fait (ici f2main.c et f1main.c) 
+Le répertoire bin contiendra les executables et les tests (pccmain, f1main et f2main)
+
+make bin/pccmain pour construire le programme principal
+make bin/f1main pour constuire le programme de test f1main
+make bin/f2main pour constuire le programme de test f2main
+
+
+Modifier le Makefile quand vous ajouter des fichiers de fonctions, de tests ou de programme 
+Lorsque vous faites un nouveau fichier contenant des fonctions, ajouter le fichier .o correspodnant à la ligne OBJ=....
+Lorsque vous faites un nouveau fichier de tests, ajouter 3 lignes similaires à celles correspondant à $(BINDIR)/f1main:...
+Lorsque vous faites un nouveau programme, ajouter 3 lignes similaires à celles correspondant à $(BINDIR)/pccmain:...
+

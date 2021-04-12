@@ -1,0 +1,7 @@
+*.o
+*.csv
+a.out
+*.exe
+*.utf8
+*.dSYM
+*.txt

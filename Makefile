@@ -27,35 +27,30 @@ CFLAGS=-c -g -I$(INCDIR)
 LDFLAGS= -lm
 
 #Les executables que l'on veut construire: a la fois ceux des tests et ceux des programmes finaux
-EXEDIR=$(BINDIR)/pccmain $(BINDIR)/f1main $(BINDIR)/f2main
+EXEDIR=$(BINDIR)/pccmain $(BINDIR)/graph $(BINDIR)/arc $(BINDIR)/test_edge
 
 
 #Les fichiers binaire : ajouter les noms des nouveaux fichiers ici
-OBJ=$(OBJDIR)/f1.o $(OBJDIR)/f2.o
+OBJ=$(OBJDIR)/arc.o $(OBJDIR)/graph.o
 
 #Pour construire tous les executables
 all: $(EXEDIR)
 
-#pour construire pccmain qui utilise f1.o et f2.o
+#pour construire pccmain qui utilise tous les fichiers binaires
 $(BINDIR)/pccmain : $(OBJ) $(OBJDIR)/pccmain.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-
-#pour construire le test f1main qui utilise f1.o 
-$(BINDIR)/f1main : $(OBJDIR)/f1.o $(OBJDIR)/f1main.o
+#pour construire le test test_edge qui utilise arc.o
+$(BINDIR)/test_edge : $(OBJDIR)/arc.o $(OBJDIR)/test_edge.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-#pour construire le test f2main qui utilise f2.o 
-$(BINDIR)/f2main : $(OBJDIR)/f2.o $(OBJDIR)/f2main.o
-	$(CC) -o $@ $^ $(LDFLAGS)
-
-# poru construire les fichiers binaires .o
+# pour construire les fichiers binaires .o
 $(OBJDIR)/%.o : $(TESTS)/%.c
 	$(CC) $(CFLAGS) $^ -o $@
 
 $(OBJDIR)/%.o : $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $^ -o $@
-	
 
-clean: 
+
+clean:
 	rm -rf $(OBJDIR)/* $(BINDIR)/* $(EXEDIR) *.dSYM

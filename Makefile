@@ -3,7 +3,7 @@
 #-  pour le programme pccmain du repertoire src
 
 # les fichiezrs executables sont situés sdnas le repertoire bin
-
+# teste
 
 #Les repertoires
 #Pour les fichiers d'entete
@@ -41,11 +41,11 @@ $(BINDIR)/pccmain : $(OBJ) $(OBJDIR)/pccmain.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 
-#pour construire le test f1main qui utilise f1.o 
+#pour construire le test f1main qui utilise f1.o
 $(BINDIR)/f1main : $(OBJDIR)/f1.o $(OBJDIR)/f1main.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-#pour construire le test f2main qui utilise f2.o 
+#pour construire le test f2main qui utilise f2.o
 $(BINDIR)/f2main : $(OBJDIR)/f2.o $(OBJDIR)/f2main.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
@@ -55,7 +55,7 @@ $(OBJDIR)/%.o : $(TESTS)/%.c
 
 $(OBJDIR)/%.o : $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $^ -o $@
-	
 
-clean: 
+
+clean:
 	rm -rf $(OBJDIR)/* $(BINDIR)/* $(EXEDIR) *.dSYM

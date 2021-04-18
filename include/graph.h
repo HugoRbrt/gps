@@ -24,14 +24,17 @@ vertex_t* data; // tableau des sommets, alloue dynamiquement
 //retourne le numero du sommet ayant le meme nom que l (-1 si n'existe pas)
 int graph_recherche(char* l, graph_t g);
 
+//creer et retourne un nouveau graph de la bonne taille
+graph_t graph_new(int nbsommet, int nbarcs);
 
+//creer un nouvel ligne
+vertex_t vertex_new(int num, char* line, double longi, double lat);
 
+//affiche une ligne de tableau
+void vertex_print(vertex_t v);
 
-
-
-
-
-
+//affiche le tableau
+void graph_print(graph_t g);
 
 
 

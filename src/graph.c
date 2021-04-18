@@ -1,5 +1,5 @@
 #include "graph.h"
-
+#include <string.h>
 int graph_recherche(char* l, graph_t g)
 {
   int indice =0;
@@ -66,4 +66,5 @@ graph_t graph_delete(graph_t g){
     listedge_delete(g.data[indice].edges);
   }
   free(g.data);
+  return g;
 }

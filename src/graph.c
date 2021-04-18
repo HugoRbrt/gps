@@ -50,11 +50,20 @@ void vertex_print(vertex_t v)
 void graph_print(graph_t g)
 {
   int indice;
-  printf("[");
-  for(indice=0;indice<g.size_vertices;indice++)
+  puts("[");
+  vertex_print(g.data[0]);
+  for(indice=1;indice<g.size_vertices;indice++)
   {
+    puts("");
     vertex_print(g.data[indice]);
-    printf(" ; ");
   }
-  printf("");
+  puts("]");
+}
+
+graph_t graph_delete(graph_t g){
+  int indice ;
+  for(indice=0;indice<g.size_vertices;indice++){
+    listedge_delete(g.data[indice].edges);
+  }
+  free(g.data);
 }

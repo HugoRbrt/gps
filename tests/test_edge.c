@@ -14,6 +14,12 @@ int main(int argc, char** argv)
 
   puts("affichage arc e1 :");
   edge_print(e1);puts("");
+  puts("affichage arc e2 :");
+  edge_print(e2);puts("");
+  puts("affichage arc e3 :");
+  edge_print(e3);puts("");
+  puts("affichage arc e4 :");
+  edge_print(e4);puts("");
   listedge_t l = listedge_new();
 
   puts("affichage liste vide :");
@@ -23,7 +29,7 @@ int main(int argc, char** argv)
   l = listedge_add(e1,l);
   listedge_print(l);puts("");
 
-  puts("affichage list (e1,e2,e3,e4) :");
+  puts("affichage list triee (e4,e2,e3,e1) :");
   l = listedge_add(e2,l);l = listedge_add(e3,l);l = listedge_add(e4,l);
   listedge_print(l);puts("");
 
@@ -34,5 +40,6 @@ int main(int argc, char** argv)
 
   puts("Liberation de la liste...");
   l = listedge_delete(l);
-  puts("liberation termine");
+
+  puts("*fin*");
 }

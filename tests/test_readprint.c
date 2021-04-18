@@ -39,5 +39,10 @@ int main(int argc, char** argv)
   listedge_print(g.data[4].edges);
   puts("");
 
+  puts("suppression graph et liste...");
+  g = graph_delete(g);
+
+  puts("*fin*");
+
   fclose(f);
 }

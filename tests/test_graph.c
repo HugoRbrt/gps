@@ -28,4 +28,8 @@ int main(int argc, char** argv)
   puts("");
   printf("recherche de n0 (devrait afficher -1) : %d",graph_recherche("n0",g));
   puts("");
+  puts("suppression graph...");
+  g = graph_delete(g);
+
+  puts("*fin*");
 }

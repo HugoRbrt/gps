@@ -11,6 +11,7 @@ double x,y; // coordonnees latitude et longitude du sommet
 int sizeedges; //nombre d'arcs qui partent de ce sommet
 listedge_t edges; // liste des arcs qui partent de ce sommet
 double pcc; // valeur du "plus court chemin" entre le sommet de d ́epart et ce sommet.
+double cout;   //cout du sommet
 } vertex_t;
 
 // Type graphe :
@@ -36,7 +37,8 @@ void vertex_print(vertex_t v);
 //affiche le tableau
 void graph_print(graph_t g);
 
-
+//supprime graph
+graph_t graph_delete(graph_t g);
 
 
 

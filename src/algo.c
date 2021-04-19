@@ -9,7 +9,7 @@ int Dijkstra(int depart, int arrivee, graph_t g)
   double DistTemp;
   vertex_t * u=NULL;
   vertex_t * v=NULL;
-  if((depart<0)||(depart>g.size_vertices)||(arrivee<0)||(arrivee>g.size_vertices)){return 0;}//si la station n'existe pas
+  if((depart<0)||(depart>g.size_vertices)||(arrivee<0)||(arrivee>g.size_vertices)){Atteint = list_delete(Atteint);Atraiter = list_delete(Atraiter);return 0;}//si la station n'existe pas
 
   for(indice=0;indice<g.size_vertices;indice++) //ligne 2
   {
@@ -26,6 +26,7 @@ int Dijkstra(int depart, int arrivee, graph_t g)
     Atraiter = list_delfirst(Atraiter);
     if(u->numero == arrivee)//ligne 7
     {
+      Atteint = list_delete(Atteint);Atraiter = list_delete(Atraiter);
       return 1;//ligne 8
     }
     else//ligne9
@@ -47,6 +48,7 @@ int Dijkstra(int depart, int arrivee, graph_t g)
       }//ligne20 de commentaire
     }//ligne21 de commentaire
   }//ligne22 de commentaire
+  Atteint = list_delete(Atteint);Atraiter = list_delete(Atraiter);
   if(g.data[arrivee].cout<DBL_MAX)//ligne23
   {
     return 1;
@@ -66,7 +68,7 @@ int Astar(int depart, int arrivee, graph_t g)
   double DistTemp;
   vertex_t * u=NULL;
   vertex_t * v=NULL;
-  if((depart<0)||(depart>g.size_vertices)||(arrivee<0)||(arrivee>g.size_vertices)){return 0;}//si la station n'existe pas
+  if((depart<0)||(depart>g.size_vertices)||(arrivee<0)||(arrivee>g.size_vertices)){Atteint = list_delete(Atteint);Atraiter = list_delete(Atraiter);return 0;}//si la station n'existe pas
   for(indice=0;indice<g.size_vertices;indice++) //ligne 2
   {
     g.data[indice].pcc = DBL_MAX;
@@ -81,6 +83,7 @@ int Astar(int depart, int arrivee, graph_t g)
     Atraiter = list_delfirst(Atraiter);
     if(u->numero == arrivee)//ligne 7
     {
+      Atteint = list_delete(Atteint);Atraiter = list_delete(Atraiter);
       return 1;//ligne 8
     }
     else//ligne9
@@ -102,6 +105,7 @@ int Astar(int depart, int arrivee, graph_t g)
       }//ligne20 de commentaire
     }//ligne21 de commentaire
   }//ligne22 de commentaire
+  Atteint = list_delete(Atteint);Atraiter = list_delete(Atraiter);
   if(g.data[arrivee].cout<DBL_MAX)//ligne23
   {
     return 1;

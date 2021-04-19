@@ -16,7 +16,7 @@ int main(int argc, char** argv)
   char mot[512] ;
   graph_t g;
 
-  f=fopen("text/grapheUSAOuest.txt","r");
+  f=fopen("text/graphe1.txt","r");
 
 
 
@@ -66,6 +66,9 @@ int main(int argc, char** argv)
   }
   else{printf("Error : wrong input");exit(0);}
   if(res==1){print_chemin(depart,arrivee,g);}
+
+  puts("suppression graph et liste...");
+  g = graph_delete(g);
   puts("*fin*");
   fclose(f);
 }

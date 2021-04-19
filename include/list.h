@@ -23,7 +23,7 @@ int list_isempty(list_t l);
 // Ajoute l'élément e en tête de la liste et retourne la nouvelle liste
 list_t list_addfirst( vertex_t * v, list_t l );
 
-// Ajoute l'élément ordre triee par pcc croissant
+// Ajoute l'élément ordre triee par cout croissant
 list_t list_addsort( vertex_t * v, list_t l );
 
 // Affiche la liste
@@ -32,8 +32,8 @@ void list_print(list_t l);
 // Retourne le nombre d'éléments (ou de maillons) de la liste
 int list_length(list_t l);
 
-// Retourne un pointeur sur le premier maillon contenant e,
-// ou NULL si e n'est pas dans la liste
+// Retourne un pointeur sur le premier maillon contenant le numero num,
+// ou NULL si num n'est pas dans la liste
 list_t list_findnum(int num, list_t l);
 
 // Supprime le maillon en tête de liste et retourne la nouvelle liste

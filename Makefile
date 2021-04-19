@@ -27,11 +27,11 @@ CFLAGS=-c -g -I$(INCDIR)
 LDFLAGS= -lm
 
 #Les executables que l'on veut construire: a la fois ceux des tests et ceux des programmes finaux
-EXEDIR=$(BINDIR)/pccmain $(BINDIR)/test_list $(BINDIR)/list $(BINDIR)/graph $(BINDIR)/arc $(BINDIR)/test_edge $(BINDIR)/test_readprint
+EXEDIR=$(BINDIR)/pccmain $(BINDIR)/test_algo $(BINDIR)/test_list $(BINDIR)/list $(BINDIR)/graph $(BINDIR)/arc $(BINDIR)/test_edge $(BINDIR)/test_readprint
 
 
 #Les fichiers binaire : ajouter les noms des nouveaux fichiers ici
-OBJ=$(OBJDIR)/arc.o $(OBJDIR)/graph.o $(OBJDIR)/list.o
+OBJ=$(OBJDIR)/arc.o $(OBJDIR)/graph.o $(OBJDIR)/list.o $(OBJDIR)/algo.o
 
 #Pour construire tous les executables
 all: $(EXEDIR)
@@ -44,12 +44,14 @@ $(BINDIR)/pccmain : $(OBJ) $(OBJDIR)/pccmain.o
 $(BINDIR)/test_edge : $(OBJDIR)/arc.o $(OBJDIR)/test_edge.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
+$(BINDIR)/test_algo : $(OBJ) $(OBJDIR)/test_algo.o
+	$(CC) -o $@ $^ $(LDFLAGS)
+
 $(BINDIR)/test_graph : $(OBJDIR)/graph.o $(OBJDIR)/arc.o $(OBJDIR)/test_graph.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 $(BINDIR)/test_list : $(OBJDIR)/graph.o $(OBJDIR)/arc.o $(OBJDIR)/list.o $(OBJDIR)/test_list.o
 	$(CC) -o $@ $^ $(LDFLAGS)
-
 
 $(BINDIR)/test_readprint : $(OBJDIR)/graph.o $(OBJDIR)/arc.o  $(OBJDIR)/test_readprint.o
 	$(CC) -o $@ $^ $(LDFLAGS)

@@ -39,6 +39,7 @@ vertex_t vertex_new(int num, char* line, double longi, double lat)
   v.x = lat;
   v.y=longi;
   v.edges=NULL;
+  v.pere = -1;
   return v;
 }
 

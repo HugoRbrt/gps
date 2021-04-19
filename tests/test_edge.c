@@ -40,6 +40,7 @@ int main(int argc, char** argv)
 
   puts("Liberation de la liste...");
   l = listedge_delete(l);
+  printf("taille de la liste : %d",listedge_size(l));puts("");
 
   puts("*fin*");
 }

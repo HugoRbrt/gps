@@ -12,6 +12,7 @@ int sizeedges; //nombre d'arcs qui partent de ce sommet
 listedge_t edges; // liste des arcs qui partent de ce sommet
 double pcc; // valeur du "plus court chemin" entre le sommet de d ́epart et ce sommet.
 double cout;   //cout du sommet
+int pere; //pere de la station numero (-1 si il y en a pas)
 } vertex_t;
 
 // Type graphe :

@@ -15,7 +15,7 @@ int main(int argc, char** argv)
   char line[128] ;
   char mot[512] ;
   graph_t g;
-  f=fopen("text/graphe1.txt","r");
+  f=fopen("text/graphe2.txt","r");
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
   fscanf(f,"%d %d ",&nbsommet,&nbarcs);
   fgets(mot,511,f);
@@ -27,7 +27,6 @@ int main(int argc, char** argv)
     if (mot[strlen(mot)-1]<32) mot[strlen(mot)-1]=0;
     g.data[indice] = vertex_new(numero, line, longi, lat);
   }
-
   fgets(mot,511,f);
   for(indice=0;indice<g.size_egdes;indice++)
   {
@@ -36,8 +35,8 @@ int main(int argc, char** argv)
   }
   printf("affichage du graph : ");
   graph_print(g);
-  puts("");printf("affichage de la liste des voisin de 4 : ");
-  listedge_print(g.data[4].edges);
+  puts("");printf("affichage de la liste des voisin de 2 : ");
+  listedge_print(g.data[2].edges);
   puts("");
 
   puts("suppression graph et liste...");

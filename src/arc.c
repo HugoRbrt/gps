@@ -71,7 +71,7 @@ listedge_t listedge_delete(listedge_t l)
   {
     p = listedge_delfirst(p);
   }
-  return l;
+  return NULL;
 }
 
 

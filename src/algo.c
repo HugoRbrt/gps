@@ -125,7 +125,6 @@ void print_chemin(int depart, int arrivee, graph_t g)
 {
   //on cree la pile et on empile l'arrivée
   lifo_int_t parcours = lifo_new();
-  parcours = lifo_push(arrivee,parcours);
   //printf("Chemin pour aller de %d a %d :",depart, arrivee);puts("");
   int indice = arrivee;
   while(indice != depart)
@@ -135,8 +134,8 @@ void print_chemin(int depart, int arrivee, graph_t g)
     parcours = lifo_push(indice,parcours);
     indice = g.data[indice].pere;
   }
-  parcours = lifo_push(arrivee,parcours);
+  parcours = lifo_push(depart,parcours);
   //la liste est complete il ne reste plus qu a l'afficher
   //printf("%d",indice);puts("");
-  lifo_print(parcours);
+  lifo_print(parcours,g);
 }

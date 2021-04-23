@@ -13,7 +13,7 @@ int main(int argc, char** argv)
   graph_t g = graph_new(3,0);
 
   puts("affichage vertex e1 :");
-  vertex_print(e1);puts("");
+  vertex_print(e2);puts("");
 
   puts("affichage graph initialise:");
   graph_print(g);puts("");

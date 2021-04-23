@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-
+#include "graph.h"
 
 
 // 1. Définition des types maillon (link_t) et liste (list_t)
@@ -36,4 +36,4 @@ int lifo_pop(lifo_int_t * p_stack);
 
 lifo_int_t lifo_delete(lifo_int_t stack);
 
-void lifo_print(lifo_int_t stack);
+void lifo_print(lifo_int_t stack, graph_t g);

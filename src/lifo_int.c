@@ -1,6 +1,7 @@
 #include "lifo_int.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //-- le type de pile est definie par le type list donc on peut reutiliser les fonctions
 
@@ -45,12 +46,15 @@ int lifo_pop(lifo_int_t* ap)	{
 }
 
 
-void lifo_print(lifo_int_t p) {
+void lifo_print(lifo_int_t p, graph_t g) {
   lifo_int_t q;
   printf("( ");
   for(q=p; !lifo_is_empty(q); q = q->next) {
     printf("%d",q->val);
     printf(" ");
+
+//affichage des correspondance du metro an cas de changement de ligne
+    if((!lifo_is_empty(q->next))&&(strcmp(g.data[q->val].ligne,g.data[q->next->val].ligne)!=0)) {printf("(Changement de ligne vers %s) ",g.data[q->next->val].ligne);}
   }
   printf(")\n");
 }

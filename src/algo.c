@@ -137,5 +137,5 @@ void print_chemin(int depart, int arrivee, graph_t g)
   parcours = lifo_push(depart,parcours);
   //la liste est complete il ne reste plus qu a l'afficher
   //printf("%d",indice);puts("");
-  lifo_print(parcours);
+  lifo_print(parcours,g);
 }

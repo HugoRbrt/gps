@@ -26,12 +26,12 @@ int main(int argc, char** argv)
   g = graph_new(nbsommet,nbarcs);
   for(indice=0;indice<g.size_vertices;indice++)                 //Boucle pour rensigner les sommets dans le graph
   {
-
     fscanf(f,"%d %lf %lf %s", &numero, &lat, &longi, Ligne+(128*indice));
-    strcat(Ligne, " ");
+    //strcat(Ligne, " ");
     fgets(mot,511,f);
     if (mot[strlen(mot)-1]<32) mot[strlen(mot)-1]=0;
     g.data[indice] = vertex_new(numero, Ligne+(indice*128), longi, lat);
+    printf("%s",g.data[indice].ligne);
   }
   fgets(mot,511,f);
   for(indice=0;indice<g.size_egdes;indice++)                  //Boucle pour rensigner les arcs dans le graph
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
     fscanf(f,"%d %d %lf ",&noeud_dep,&noeud_arriv,&val);
     g.data[noeud_dep].edges = listedge_add(edge_new(noeud_arriv,(double)val),g.data[noeud_dep].edges );
   }
-  for(count=0;count<g.size_vertices;count++)                //renseigne la longueur leqs listes
+  for(count=0;count<g.size_vertices;count++)                //renseigne la longueur des listes
   {
     g.data[count].sizeedges = listedge_size(g.data[count].edges);
   }
@@ -70,6 +70,7 @@ int main(int argc, char** argv)
 
   puts("suppression graph et liste...");
   g = graph_delete(g);
+  free(Ligne);      //possiblement faux (a verifier sur linux)
   puts("*fin*");
   fclose(f);
 }

@@ -38,7 +38,8 @@ vertex_t vertex_new(int num, char* line, double longi, double lat)
 {
   vertex_t v;
   v.numero = num;
-  v.ligne = line;
+  v.ligne = malloc(128);
+  strcpy(v.ligne,line);
   v.x = lat;
   v.y=longi;
   v.edges=NULL;
@@ -68,6 +69,7 @@ graph_t graph_delete(graph_t g){
   int indice ;
   for(indice=0;indice<g.size_vertices;indice++){
     listedge_delete(g.data[indice].edges);
+    free(g.data[indice].ligne);
   }
   free(g.data);
   return g;

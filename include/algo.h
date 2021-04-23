@@ -18,3 +18,6 @@ double heuristique(vertex_t v, vertex_t a);
 
 //Affichage du chemin(uniquement si Astar ou Dijkstra a trouver le chemin (donc retourner 1) ! (sinon boucle infinie)
 void print_chemin(int depart, int arrivee, graph_t g);
+
+//algorithme avec choix entre Astar et Dijkstra
+int algorithme();

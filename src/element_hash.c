@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 
-typedef char* keys_t;
+typedef char* keys_t; 
 
 typedef int value_t;
 

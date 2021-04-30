@@ -27,11 +27,11 @@ CFLAGS=-c -g -I$(INCDIR)
 LDFLAGS= -lm
 
 #Les executables que l'on veut construire: a la fois ceux des tests et ceux des programmes finaux
-EXEDIR=$(BINDIR)/pccmain $(BINDIR)/test_algo $(BINDIR)/test_list $(BINDIR)/list $(BINDIR)/graph $(BINDIR)/arc $(BINDIR)/test_edge $(BINDIR)/test_readprint
+EXEDIR=$(BINDIR)/pccmain $(BINDIR)/test_algo $(BINDIR)/test_list $(BINDIR)/list $(BINDIR)/graph $(BINDIR)/arc $(BINDIR)/test_edge $(BINDIR)/test_readprint $(BINDIR)/test_hashtable
 
 
 #Les fichiers binaire : ajouter les noms des nouveaux fichiers ici
-OBJ=$(OBJDIR)/arc.o $(OBJDIR)/graph.o $(OBJDIR)/list.o $(OBJDIR)/algo.o $(OBJDIR)/lifo_int.o
+OBJ=$(OBJDIR)/arc.o $(OBJDIR)/graph.o $(OBJDIR)/list.o $(OBJDIR)/algo.o $(OBJDIR)/lifo_int.o $(OBJDIR)/element_hash.o $(OBJDIR)/list_hash.o $(OBJDIR)/tadhash.o
 
 #Pour construire tous les executables
 all: $(EXEDIR)
@@ -48,18 +48,18 @@ $(BINDIR)/test_algo : $(OBJ) $(OBJDIR)/test_algo.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 	#pour construire le test test_edge qui utilise arc.o
-$(BINDIR)/test_graph : $(OBJ) $(OBJDIR)/test_graph.o
+$(BINDIR)/test_graph :$(OBJDIR)/graph.o $(OBJDIR)/arc.o $(OBJDIR)/test_graph.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-#pour construire le test f1main qui utilise f1.o
-$(BINDIR)/f1main : $(OBJDIR)/f1.o $(OBJDIR)/f1main.o
-	$(CC) -o $@ $^ $(LDFLAGS)
-
-#pour construire le test f2main qui utilise f2.o
-$(BINDIR)/f2main : $(OBJDIR)/f2.o $(OBJDIR)/f2main.o
+	#pour construire le test test_list qui utilise list.o arc.o graph.o
+$(BINDIR)/test_list :$(OBJDIR)/graph.o $(OBJDIR)/arc.o $(OBJDIR)/list.o $(OBJDIR)/test_list.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 $(BINDIR)/test_readprint : $(OBJDIR)/graph.o $(OBJDIR)/arc.o  $(OBJDIR)/test_readprint.o
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+	#pour construire le test test_edge qui utilise arc.o
+$(BINDIR)/test_hashtable : $(OBJDIR)/element_hash.o $(OBJDIR)/list_hash.o $(OBJDIR)/tadhash.o $(OBJDIR)/test_hashtable.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 # pour construire les fichiers binaires .o

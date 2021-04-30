@@ -1,5 +1,4 @@
-#include "list_hash.h"
-
+#include "tadhash.h"
 // Pour plus de propreté des concepts,
 // on définit l'identifier NIL (signifiant "fin de liste")
 // plutôt que d'utiliser directement NULL (signifiant "pointeur nul")
@@ -14,12 +13,12 @@ int list_is_empty( list_hash_t l ) {
 }
 
 // Precondition : liste non vide
-element_t list_first(list_hash_t l){
+element_hash_t list_first(list_hash_t l){
   assert(!list_is_empty(l));
   return l->val;
 }
 
-list_hash_t list_add_first( element_t e, list_hash_t l ) {
+list_hash_t list_add_first( element_hash_t e, list_hash_t l ) {
   list_hash_t p = calloc( 1, sizeof( *p ) );
   if ( NULL == p ) {
     fprintf( stderr, "Fatal: Unable to allocate new list link.\n" );
@@ -59,7 +58,7 @@ int list_length(list_hash_t l) {
   return len;
 }
 
-list_hash_t list_find(element_t e, list_hash_t l) {
+list_hash_t list_find(element_hash_t e, list_hash_t l) {
   list_hash_t p;
   for( p=l; ! list_is_empty(p) ; p=p->next ) {
     if( element_equal(&(p->val), &e) ) {
@@ -101,7 +100,7 @@ list_hash_t list_delete_key(keys_t k, list_hash_t l) { list_hash_t p=NULL, ppred
     }
 }
 
-list_hash_t list_add_last(element_t e, list_hash_t l) {list_hash_t p=NIL, c=NIL;;
+list_hash_t list_add_last(element_hash_t e, list_hash_t l) {list_hash_t p=NIL, c=NIL;;
   if ( (p=calloc( 1, sizeof (*p)))!=NULL)  { p->val=e; }
   if (list_is_empty(l)) return p;
   else {

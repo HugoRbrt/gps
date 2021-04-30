@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#include "element.h"
-#include "list.h"
+#include "list_hash.h"
 
 typedef struct {
   int size;

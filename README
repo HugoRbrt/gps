@@ -14,3 +14,5 @@ Lorsque vous faites un nouveau fichier de tests, ajouter 3 lignes similaires à 
 Lorsque vous faites un nouveau programme, ajouter 3 lignes similaires à celles correspondant à $(BINDIR)/pccmain:...
 
 Pour compiler il faut cree un dossier "obj" dans le porjet, mais il ne faut pas le push
+
+TEST

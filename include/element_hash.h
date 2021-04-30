@@ -1,3 +1,5 @@
+#ifndef _ELEMENT_HASH_H
+#define _ELEMENT_HASH_H
 #include <string.h>
 #include <stdio.h>
 
@@ -45,3 +47,5 @@ int element_equal(element_hash_t*, element_hash_t*);
 
 // Ecrit dans un fichier la cle (mot) et la valeur (nombre d'occurrences)
 void element_fprint (FILE* fd, element_hash_t e) ;
+
+#endif

@@ -14,6 +14,7 @@ int main(int argc, char** argv)
   double val;
   double lat,longi ;
   char* Ligne;
+  char* name;
   char mot[512] ;
   graph_t g;
 
@@ -23,15 +24,15 @@ int main(int argc, char** argv)
   fscanf(f,"%d %d ",&nbsommet,&nbarcs);
   fgets(mot,511,f);
   Ligne = malloc(129*nbsommet+1);
+  name = malloc(129*nbsommet+1);
   g = graph_new(nbsommet,nbarcs);
   for(indice=0;indice<g.size_vertices;indice++)                 //Boucle pour rensigner les sommets dans le graph
   {
     fscanf(f,"%d %lf %lf %s", &numero, &lat, &longi, Ligne+(128*indice));
+    fgets(name+(128*indice),128,f);
     //strcat(Ligne, " ");
-    fgets(mot,511,f);
     if (mot[strlen(mot)-1]<32) mot[strlen(mot)-1]=0;
-    g.data[indice] = vertex_new(numero, Ligne+(indice*128), longi, lat);
-    printf("%s",g.data[indice].ligne);
+    g.data[indice] = vertex_new(numero, Ligne+(indice*128), longi, lat,name+(128*indice));
   }
   fgets(mot,511,f);
   for(indice=0;indice<g.size_egdes;indice++)                  //Boucle pour rensigner les arcs dans le graph
@@ -71,6 +72,7 @@ int main(int argc, char** argv)
   puts("suppression graph et liste...");
   g = graph_delete(g);
   free(Ligne);      //possiblement faux (a verifier sur linux)
+  free(name);
   puts("*fin*");
   fclose(f);
 }

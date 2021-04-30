@@ -47,6 +47,9 @@ $(BINDIR)/test_edge : $(OBJDIR)/arc.o $(OBJDIR)/test_edge.o
 $(BINDIR)/test_algo : $(OBJ) $(OBJDIR)/test_algo.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
+$(BINDIR)/test_algohash : $(OBJ) $(OBJDIR)/test_algohash.o
+	$(CC) -o $@ $^ $(LDFLAGS)
+
 	#pour construire le test test_edge qui utilise arc.o
 $(BINDIR)/test_graph :$(OBJDIR)/graph.o $(OBJDIR)/arc.o $(OBJDIR)/test_graph.o
 	$(CC) -o $@ $^ $(LDFLAGS)
@@ -61,6 +64,7 @@ $(BINDIR)/test_readprint : $(OBJDIR)/graph.o $(OBJDIR)/arc.o  $(OBJDIR)/test_rea
 	#pour construire le test test_edge qui utilise arc.o
 $(BINDIR)/test_hashtable : $(OBJDIR)/element_hash.o $(OBJDIR)/list_hash.o $(OBJDIR)/tadhash.o $(OBJDIR)/test_hashtable.o
 	$(CC) -o $@ $^ $(LDFLAGS)
+
 
 # pour construire les fichiers binaires .o
 $(OBJDIR)/%.o : $(TESTS)/%.c

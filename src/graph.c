@@ -34,12 +34,14 @@ graph_t graph_new(int nbsommet, int nbarcs)
   return g;
 }
 
-vertex_t vertex_new(int num, char* line, double longi, double lat)
+vertex_t vertex_new(int num, char* line, double longi, double lat, char* name)
 {
   vertex_t v;
   v.numero = num;
   v.ligne = malloc(128);
   strcpy(v.ligne,line);
+  v.nom = malloc(128);
+  strcpy(v.nom,name);
   v.x = lat;
   v.y=longi;
   v.edges=NULL;
@@ -49,7 +51,7 @@ vertex_t vertex_new(int num, char* line, double longi, double lat)
 
 void vertex_print(vertex_t v)
 {
-  printf("%d %s %lf %lf",v.numero, v.ligne, v.y, v.x);
+  printf("%d %lf %lf %s '%s'",v.numero, v.x, v.y,v.ligne, v.nom);
 }
 
 void graph_print(graph_t g)
@@ -59,7 +61,6 @@ void graph_print(graph_t g)
   vertex_print(g.data[0]);
   for(indice=1;indice<g.size_vertices;indice++)
   {
-    puts("");
     vertex_print(g.data[indice]);
   }
   puts("]");

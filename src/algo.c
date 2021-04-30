@@ -1,5 +1,6 @@
 #include "algo.h"
 #include "lifo_int.h"
+#include "tadhash.h"
 int Dijkstra(int depart, int arrivee, graph_t g)
 {
   list_t Atraiter = list_new();   //ligne 1
@@ -139,17 +140,18 @@ void print_chemin(int depart, int arrivee, graph_t g)
   //printf("%d",indice);puts("");
   lifo_print(parcours,g);
 }
-
-int algorithme()
+//retourne le graphe construit et prend en fonction la hashtable
+graphe_t creation_graphe(hashtable_t* tab_station)
 {
   int depart,arrivee,count,choix,res=0;
   FILE* f;
   int indice,nbsommet, nbarcs,numero,noeud_dep, noeud_arriv;
   double val;
-  double lat,longi ;
+  double lat,longi;
   char* Ligne;
-  char mot[512] ;
+  char mot[512];
   graph_t g;
+  *tab_station = hashtable_new(26); //reste a definir m; ~le nombre de station differente pour le metro
 
   f=fopen("text/metroetu.txt","r");
 
@@ -166,6 +168,7 @@ int algorithme()
     fgets(mot,511,f);
     if (mot[strlen(mot)-1]<32) mot[strlen(mot)-1]=0;
     g.data[indice] = vertex_new(numero, Ligne+(indice*128), longi, lat);
+    *tab_station = hashtable_put(ligne,numero,tab_station); // on ajoute a notre table de hash le nouveau sommet
   }
   fgets(mot,511,f);
   for(indice=0;indice<g.size_egdes;indice++)                  //Boucle pour rensigner les arcs dans le graph
@@ -177,17 +180,25 @@ int algorithme()
   {
     g.data[count].sizeedges = listedge_size(g.data[count].edges);
   }
+  return g;
+}
+
+int choix_algo(graphe_t g)
+{
+  char * debut;
+  char * arrivee;
   printf("Choisissez l'algorithme a utiliser :\n1 : Dijkstra\n2 : A*\n");
   scanf("%d",&choix);
   if(choix==1)
   {
     puts("DEBUT DIJKSTRA");
-    printf("Choisissez le numero de la station depart : ");
-    scanf("%d",&depart);
-    printf("Choisissez le numero de la station arrivee : ");
-    scanf("%d",&arrivee);puts("");
+    printf("Choisissez le nom de la station depart : ");
+    scanf("%s",&depart);
+    printf("Choisissez le nom de la station arrivee : ");
+    scanf("%s",&arrivee);puts("");
     res = Dijkstra(depart,arrivee,g);
     printf("resultat : %d",res);puts("");
+    tab_station = hashtable_delete(tab_station);
   }
   else if(choix==2)
   {
@@ -197,6 +208,7 @@ int algorithme()
     scanf("%d",&arrivee);puts("");
     res = Astar(depart,arrivee,g);
     printf("resultat : %d",res);puts("");
+    tab_station = hashtable_delete(tab_station);
 
   }
   else{printf("Error : wrong input");exit(0);}
@@ -204,6 +216,7 @@ int algorithme()
 
   puts("suppression graph et liste...");
   g = graph_delete(g);
+  tab_station = hashtable_delete(tab_station);
   puts("*fin*");
   fclose(f);
   return g.data[arrivee].cout;

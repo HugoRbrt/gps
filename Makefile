@@ -47,6 +47,10 @@ $(BINDIR)/test_edge : $(OBJDIR)/arc.o $(OBJDIR)/test_edge.o
 $(BINDIR)/test_algo : $(OBJ) $(OBJDIR)/test_algo.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
+	#pour construire le test test_edge qui utilise arc.o
+$(BINDIR)/test_graph : $(OBJ) $(OBJDIR)/test_graph.o
+	$(CC) -o $@ $^ $(LDFLAGS)
+
 #pour construire le test f1main qui utilise f1.o
 $(BINDIR)/f1main : $(OBJDIR)/f1.o $(OBJDIR)/f1main.o
 	$(CC) -o $@ $^ $(LDFLAGS)

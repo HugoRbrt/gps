@@ -140,36 +140,52 @@ void print_chemin(int depart, int arrivee, graph_t g)
   //la liste est complete il ne reste plus qu a l'afficher
   //printf("%d",indice);puts("");
   lifo_print(parcours,g);
+  printf("nom de la station de depart : <%s>",g.data[depart].nom);
 }
+<<<<<<< HEAD
 //retourne le graphe construit et prend en fonction la hashtable
 graphe_t creation_graphe(hashtable_t* tab_station, int * nb_espace)
 {
   int count,choix,res=0;
   FILE* f;
+=======
+//retourne le graph construit et prend en fonction la hashtable
+graph_t creation_graph(FILE* f,hashtable_t* tab_station)
+{
+  int depart,arrivee,count,choix,res=0;
+>>>>>>> 4803a12af4381acca18ce6898aa5aa2ac20369fc
   int indice,nbsommet, nbarcs,numero,noeud_dep, noeud_arriv;
   double val;
   double lat,longi;
   char* Ligne;
+  char* name;
   char mot[512];
   graph_t g;
-  *tab_station = hashtable_new(26); //reste a definir m; ~le nombre de station differente pour le metro
 
-  f=fopen("text/metroetu.txt","r");
+  f=fopen("text/graphe2.txt","r");
 
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
   fscanf(f,"%d %d ",&nbsommet,&nbarcs);
   fgets(mot,511,f);
   Ligne = malloc(129*nbsommet+1);
+  name = malloc(129*nbsommet+1);
   g = graph_new(nbsommet,nbarcs);
   for(indice=0;indice<g.size_vertices;indice++)                 //Boucle pour rensigner les sommets dans le graph
   {
 
     fscanf(f,"%d %lf %lf %s", &numero, &lat, &longi, Ligne+(128*indice));
-    strcat(Ligne, " ");
-    fgets(mot,511,f);
+    //strcat(Ligne, " ");
+    fgets(name+(128*indice),128,f);
+    //suppression des espaces et du passage à la ligne :
+    while(name+()==" "){}
     if (mot[strlen(mot)-1]<32) mot[strlen(mot)-1]=0;
+<<<<<<< HEAD
     g.data[indice] = vertex_new(numero, Ligne+(indice*128), longi, lat);
     *tab_station = hashtable_put(ligne,numero,*tab_station); // on ajoute a notre table de hash le nouveau sommet
+=======
+    g.data[indice] = vertex_new(numero, Ligne+(indice*128), longi,lat, name+(129*indice));
+    hashtable_put(Ligne,numero,*tab_station); // on ajoute a notre table de hash le nouveau sommet
+>>>>>>> 4803a12af4381acca18ce6898aa5aa2ac20369fc
   }
   fgets(mot,511,f);
   *nb_espace = count_space(mot); // add_space(char* station) (rajouter aussi \n) strcat(mot,"\n")
@@ -185,21 +201,28 @@ graphe_t creation_graphe(hashtable_t* tab_station, int * nb_espace)
   return g;
 }
 
+<<<<<<< HEAD
 int choix_algo(graphe_t g,hashtable_t tab_station)
 {
 
   int depart,arrivee,choix,res = 0;
   char * debut;
   char * arrivee;
+=======
+int choix_int_algo(graph_t g)
+{
+  int depart,arrivee,choix,res;
+  hashtable_t tab_station;
+>>>>>>> 4803a12af4381acca18ce6898aa5aa2ac20369fc
   printf("Choisissez l'algorithme a utiliser :\n1 : Dijkstra\n2 : A*\n");
   scanf("%d",&choix);
   if(choix==1)
   {
     puts("DEBUT DIJKSTRA");
-    printf("Choisissez le nom de la station depart : ");
-    scanf("%s",&depart);
-    printf("Choisissez le nom de la station arrivee : ");
-    scanf("%s",&arrivee);puts("");
+    printf("Choisissez le numero de la station depart : ");
+    scanf("%d",&depart);
+    printf("Choisissez le numero de la station arrivee : ");
+    scanf("%d",&arrivee);puts("");
     res = Dijkstra(depart,arrivee,g);
     printf("resultat : %d",res);puts("");
   }
@@ -219,6 +242,76 @@ int choix_algo(graphe_t g,hashtable_t tab_station)
   g = graph_delete(g); //suppresion du graphe
   tab_station = hashtable_delete(tab_station); //suppression de la table
   puts("*fin*");
-  fclose(f);
+  //fonction a ne pas oublier après : fclose(f)
   return g.data[arrivee].cout;
+}
+
+int choix_char_algo(graph_t g,hashtable_t* tab_station)
+{
+  int choix,res;
+  char* depart=NULL;int num_depart;
+  char* arrivee=NULL;int num_arrivee;
+  printf("Choisissez l'algorithme a utiliser :\n1 : Dijkstra\n2 : A*\n");
+  scanf("%d",&choix);
+  depart = malloc(128);
+  arrivee = malloc(129);
+  if(choix==1)
+  {
+    puts("DEBUT DIJKSTRA");
+    printf("Choisissez le nom de la station depart : ");
+    scanf("%s",depart);
+    printf("Choisissez le nom de la station arrivee : ");
+    scanf("%s",arrivee);puts("");
+    //fait mais pas sur
+    if(!(hashtable_get_value(depart, &num_depart, *tab_station)&&hashtable_get_value(arrivee, &num_arrivee, *tab_station))){printf("une des station n'existe pas");exit(0);}
+//a finir
+
+    res = Dijkstra(num_depart,num_arrivee,g);
+    printf("resultat : %d",res);puts("");
+  }
+  else if(choix==2)
+  {
+    puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
+    scanf("%s",depart);puts("");
+    printf("Choisissez le numero de la station arrivee : ");
+    scanf("%s",arrivee);puts("");
+    //fait mais pas sur
+    if(!(hashtable_get_value(depart, &num_depart, *tab_station)&&hashtable_get_value(arrivee, &num_arrivee, *tab_station))){printf("une des station n'existe pas");exit(0);}
+//a finir
+    res = Astar(num_depart,num_arrivee,g);
+    printf("resultat : %d",res);puts("");
+
+  }
+  else{printf("Error : wrong input");exit(0);}
+  if(res==1){printf("Chemin le plus court : ");print_chemin(num_depart,num_arrivee,g);}
+
+  puts("suppression graph et liste...");
+  g = graph_delete(g);
+  *tab_station = hashtable_delete(*tab_station);
+  puts("*fin*");
+  //fonction a ne pas oublier après : fclose(f)
+  return g.data[num_arrivee].cout;
+}
+
+graph_t same_name(graph_t g, int numero)
+{
+  char* nom = g.data[numero].nom;
+  listedge_t liste = g.data[numero].edges;
+  int arriver;
+  edge_t e;
+  e.cout = 0;
+  int k,nb_add;
+
+  for(k=0;k<g.data[numero].sizeedges;k++)
+  {
+    arriver = liste->val.arrivee;
+    if(strcmp(nom,g.data[arriver].nom)==0)
+    {
+      e.arrivee = liste->val.arrivee;
+      g.data[numero].edges = listedge_add(e,g.data[numero].edges);//POSSIBILITE ERREUR, A VERIFIER
+      nb_add++;
+    }
+  }
+  g.data[numero].sizeedges+=nb_add;
+  return g;
 }

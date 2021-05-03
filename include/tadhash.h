@@ -1,3 +1,5 @@
+#ifndef _HASHTABLE_H
+#define _HASHTABLE_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -41,3 +43,5 @@ hashtable_t hashtable_delete(hashtable_t t);
 
 // Affiche toutes les paires [cle, valeur] contenues dans la table
 void hashtable_print(hashtable_t t);
+
+#endif

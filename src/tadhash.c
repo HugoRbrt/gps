@@ -46,15 +46,15 @@ int hashtable_put(keys_t k, value_t v, hashtable_t t)
   if(hashtable_contains_key(k,t) == 0)
   {
     //il n y a pas la clef dans le tableau on ajoute l'element a la liste au niveau de hash
-    t.data[h] = list_add_first(element_to_put,t.data[h]);
+    t.data[h] = list_hash_add_first(element_to_put,t.data[h]);
     // verif si la liste contient bien la valeur
     return hashtable_contains_key(k,t);
   }
   else
   {
     //l'element est deja present dans le tableau, on va donc l'actualiser
-    t.data[h] = list_delete_key(k,t.data[h]);
-    t.data[h] = list_add_first(element_to_put,t.data[h]);
+    t.data[h] = list_hash_delete_key(k,t.data[h]);
+    t.data[h] = list_hash_add_first(element_to_put,t.data[h]);
     get = hashtable_get_value(k,&new_value,t);
     if ( new_value == v )
     {
@@ -68,7 +68,7 @@ int hashtable_contains_key(keys_t k,hashtable_t t)
 {
   //on calcule la hash de k
   unsigned int h = hash(k,t.size);
-  return (list_find_key(k,t.data[h]) != NULL);
+  return (list_hash_find_key(k,t.data[h]) != NULL);
 }
 
 int hashtable_get_value(keys_t k, value_t* pv, hashtable_t t)
@@ -102,7 +102,7 @@ int hashtable_delete_key(keys_t k, hashtable_t t)
   else
   {
     h = hash(k,t.size);
-    t.data[h] = list_delete_key(k,t.data[h]);
+    t.data[h] = list_hash_delete_key(k,t.data[h]);
     return 1-hashtable_contains_key(k,t);
   }
 }
@@ -112,7 +112,7 @@ hashtable_t hashtable_delete(hashtable_t t) {
 
   for(count=0;count<t.size;count++)
   {
-    t.data[count] = list_delete(t.data[count]);
+    t.data[count] = list_hash_delete(t.data[count]);
   }
 //tout est supprime on renvoie la table vide
   return t;
@@ -120,8 +120,10 @@ hashtable_t hashtable_delete(hashtable_t t) {
 
 void hashtable_print(hashtable_t t) {
   int count;
+  printf("[\n");
   for(count = 0; count < t.size ;count++)
   {
-    list_print(t.data[count]);
+    list_hash_print(t.data[count]);
   }
+  printf("] ");
 }

@@ -30,7 +30,7 @@ int graph_recherche(char* l, graph_t g);
 graph_t graph_new(int nbsommet, int nbarcs);
 
 //creer un nouvel ligne
-vertex_t vertex_new(int num, char* line, double longi, double lat);
+vertex_t vertex_new(int num, char* line, double longi, double lat, char* name);
 
 //affiche une ligne de tableau
 void vertex_print(vertex_t v);

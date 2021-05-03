@@ -31,7 +31,7 @@ EXEDIR=$(BINDIR)/pccmain $(BINDIR)/test_algo $(BINDIR)/test_list $(BINDIR)/list 
 
 
 #Les fichiers binaire : ajouter les noms des nouveaux fichiers ici
-OBJ=$(OBJDIR)/arc.o $(OBJDIR)/graph.o $(OBJDIR)/list.o $(OBJDIR)/algo.o $(OBJDIR)/lifo_int.o $(OBJDIR)/element_hash.o $(OBJDIR)/list_hash.o $(OBJDIR)/tadhash.o
+OBJ=$(OBJDIR)/arc.o $(OBJDIR)/graph.o $(OBJDIR)/list.o $(OBJDIR)/algo.o $(OBJDIR)/lifo_int.o $(OBJDIR)/element_hash.o $(OBJDIR)/list_hash.o $(OBJDIR)/tadhash.o $(OBJDIR)/space.o
 
 #Pour construire tous les executables
 all: $(EXEDIR)
@@ -65,6 +65,9 @@ $(BINDIR)/test_readprint : $(OBJDIR)/graph.o $(OBJDIR)/arc.o  $(OBJDIR)/test_rea
 $(BINDIR)/test_hashtable : $(OBJDIR)/element_hash.o $(OBJDIR)/list_hash.o $(OBJDIR)/tadhash.o $(OBJDIR)/test_hashtable.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
+  #pour gerer les nom des stations pour la hashtable
+	$(BINDIR)/test_space : $(OBJDIR)/space.o  $(OBJDIR)/test_space.o
+		$(CC) -o $@ $^ $(LDFLAGS)
 
 # pour construire les fichiers binaires .o
 $(OBJDIR)/%.o : $(TESTS)/%.c

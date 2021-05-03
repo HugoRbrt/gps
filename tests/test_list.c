@@ -8,11 +8,11 @@
 
 int main(int argc, char** argv)
 {
-  vertex_t e1 = vertex_new(0,"n",0.0,0.0);
+  vertex_t e1 = vertex_new(0,"n",0.0,0.0,"nom_n");
   e1.cout = 1;
-  vertex_t e2 = vertex_new(1,"num0",-1.0,3.0);
+  vertex_t e2 = vertex_new(1,"num0",-1.0,3.0,"nom_num0");
   e2.cout =2;
-  vertex_t e3 = vertex_new(2,"num1",0.0,-7.0);
+  vertex_t e3 = vertex_new(2,"num1",0.0,-7.0,"nom_num1");
   e3.cout = 3;
   list_t liste = list_new();
 
@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 
   puts("suppression de la liste");
   liste = list_delete(liste);
-  printf("affichage liste supprimé : ");
+  printf("affichage liste supprimé (normalement rien): ");
   list_print(liste);
-  puts("*fin*");
+  puts("");puts("*fin*");
 }

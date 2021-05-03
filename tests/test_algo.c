@@ -13,8 +13,8 @@ int main(int argc, char** argv)
   int indice,nbsommet, nbarcs,numero,noeud_dep, noeud_arriv;
   double val;
   double lat,longi ;
-  char* Ligne;
-  char* name;
+  char** line;
+  char** name;
   char mot[512] ;
   graph_t g;
 
@@ -23,17 +23,29 @@ int main(int argc, char** argv)
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
   fscanf(f,"%d %d ",&nbsommet,&nbarcs);
   fgets(mot,511,f);
-  Ligne = malloc(129*nbsommet+1);
-  name = malloc(129*nbsommet+1);
+  line =  calloc(nbsommet,sizeof(*line));
+  if (line==NULL) { printf("erreur alloaction tableau de char line\n"); exit(EXIT_FAILURE);}
+  *line = calloc(nbsommet*128,sizeof(**line));
+  if (*line==NULL) { printf("erreur alloaction tableau de char *name\n");free(line); exit(EXIT_FAILURE);}
+  name =  calloc(nbsommet,sizeof(*name));
+  if (name==NULL) { printf("erreur alloaction tableau de char name\n"); exit(EXIT_FAILURE);}
+  *name = calloc(nbsommet*128,sizeof(**name));
+  if (*name==NULL) { printf("erreur alloaction tableau de char *name\n");free(name); exit(EXIT_FAILURE);}
   g = graph_new(nbsommet,nbarcs);
-  for(indice=0;indice<g.size_vertices;indice++)                 //Boucle pour rensigner les sommets dans le graph
+  for(indice=1;indice<nbsommet;indice++)
   {
-    fscanf(f,"%d %lf %lf %s", &numero, &lat, &longi, Ligne+(128*indice));
-    fgets(name+(128*indice),128,f);
-    //strcat(Ligne, " ");
-    if (mot[strlen(mot)-1]<32) mot[strlen(mot)-1]=0;
-    g.data[indice] = vertex_new(numero, Ligne+(indice*128), longi, lat,name+(128*indice));
+    name[indice]=name[indice-1]+128;
+    line[indice]=line[indice-1]+128;
   }
+  for(indice=0;indice<nbsommet;indice++)                 //Boucle pour rensigner les sommets dans le graph
+  {
+    fscanf(f,"%d %lf %lf %s", &numero, &lat, &longi, line[indice]);
+    fgets(name[indice],128,f);
+    if (mot[strlen(mot)-1]<32) mot[strlen(mot)-1]=0;
+    g.data[indice] = vertex_new(numero, line[indice], longi, lat,name[indice]);
+  }
+
+
   fgets(mot,511,f);
   for(indice=0;indice<g.size_egdes;indice++)                  //Boucle pour rensigner les arcs dans le graph
   {
@@ -59,7 +71,7 @@ int main(int argc, char** argv)
   else if(choix==2)
   {
     puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
-    scanf("%d",&depart);puts("");
+    scanf("%d",&depart);
     printf("Choisissez le numero de la station arrivee : ");
     scanf("%d",&arrivee);puts("");
     res = Astar(depart,arrivee,g);
@@ -71,7 +83,7 @@ int main(int argc, char** argv)
 
   puts("suppression graph et liste...");
   g = graph_delete(g);
-  free(Ligne);      //possiblement faux (a verifier sur linux)
+  free(line);      //possiblement faux (a verifier sur linux)
   free(name);
   puts("*fin*");
   fclose(f);

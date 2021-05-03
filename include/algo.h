@@ -21,7 +21,7 @@ double heuristique(vertex_t v, vertex_t a);
 void print_chemin(int depart, int arrivee, graph_t g);
 
 //retourne le graph d'un fichier texte mais aussi une table de hash des numero avec le  nom des sommets
-graph_t creation_graph(FILE* f, hashtable_t * h);
+graph_t creation_graph(FILE* f, hashtable_t * h, int* nb_espace);
 
 //realise le calcule du PCC et dit le pcc et prend le graphe construit avec la fonction precedent avec numero station
 int choix_int_algo(graph_t g);

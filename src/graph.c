@@ -51,7 +51,7 @@ vertex_t vertex_new(int num, char* line, double longi, double lat, char* name)
 
 void vertex_print(vertex_t v)
 {
-  printf("%d %lf %lf %s '%s'",v.numero, v.x, v.y,v.ligne, v.nom);
+  printf("%d %lf %lf %s %s",v.numero, v.x, v.y,v.ligne, v.nom);
 }
 
 void graph_print(graph_t g)

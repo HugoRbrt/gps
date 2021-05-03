@@ -9,26 +9,41 @@
 
 int main(int argc, char** argv)
 {
-  FILE* f;
+  FILE* f=NULL;
   int indice,nbsommet, nbarcs,numero,noeud_dep, noeud_arriv, val;
   double lat,longi ;
-  char* line ;
-  char* name ;
+  char** line=NULL ;
+  char** name=NULL ;
   char mot[512] ;
   graph_t g;
+
   f=fopen("text/graphe2.txt","r");
+
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
   fscanf(f,"%d %d ",&nbsommet,&nbarcs);
   fgets(mot,511,f);
-  line = malloc(129*nbsommet+1);
-  name = malloc(129*nbsommet+1);
+  line =  calloc(nbsommet,sizeof(*line));
+  if (line==NULL) { printf("erreur alloaction tableau de char line\n"); exit(EXIT_FAILURE);}
+  *line = calloc(nbsommet*128,sizeof(**line));
+  if (*line==NULL) { printf("erreur alloaction tableau de char *name\n");free(line); exit(EXIT_FAILURE);}
+  name =  calloc(nbsommet,sizeof(*name));
+  if (name==NULL) { printf("erreur alloaction tableau de char name\n"); exit(EXIT_FAILURE);}
+  *name = calloc(nbsommet*128,sizeof(**name));
+  if (*name==NULL) { printf("erreur alloaction tableau de char *name\n");free(name); exit(EXIT_FAILURE);}
   g = graph_new(nbsommet,nbarcs);
+  for(indice=1;indice<nbsommet;indice++)
+  {
+    name[indice]=name[indice-1]+128;
+    line[indice]=line[indice-1]+128;
+  }
+
+
   for(indice=0;indice<g.size_vertices;indice++)
   {
-    fscanf(f,"%d %lf %lf %s", &numero, &lat, &longi, line+(128*indice));
-    fgets(name+(128*indice),128,f);
+    fscanf(f,"%d %lf %lf %s", &numero, &lat, &longi, line[indice]);
+    fgets(name[indice],128,f);
     if (mot[strlen(mot)-1]<32) mot[strlen(mot)-1]=0;
-    g.data[indice] = vertex_new(numero, line+(indice*128), longi, lat, name+(128*indice));
+    g.data[indice] = vertex_new(numero, line[indice], longi, lat, name[indice]);
   }
   fgets(mot,511,f);
   for(indice=0;indice<g.size_egdes;indice++)

@@ -142,23 +142,16 @@ void print_chemin(int depart, int arrivee, graph_t g)
   lifo_print(parcours,g);
   printf("nom de la station de depart : <%s>",g.data[depart].nom);
 }
-<<<<<<< HEAD
-//retourne le graphe construit et prend en fonction la hashtable
-graphe_t creation_graphe(hashtable_t* tab_station, int * nb_espace)
-{
-  int count,choix,res=0;
-  FILE* f;
-=======
+
 //retourne le graph construit et prend en fonction la hashtable
-graph_t creation_graph(FILE* f,hashtable_t* tab_station)
+graph_t creation_graph(FILE* f,hashtable_t* tab_station, int* nb_espace)
 {
   int depart,arrivee,count,choix,res=0;
->>>>>>> 4803a12af4381acca18ce6898aa5aa2ac20369fc
   int indice,nbsommet, nbarcs,numero,noeud_dep, noeud_arriv;
   double val;
   double lat,longi;
-  char* Ligne;
-  char* name;
+  char** line=NULL ;
+  char** name=NULL ;
   char mot[512];
   graph_t g;
 
@@ -167,25 +160,29 @@ graph_t creation_graph(FILE* f,hashtable_t* tab_station)
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
   fscanf(f,"%d %d ",&nbsommet,&nbarcs);
   fgets(mot,511,f);
-  Ligne = malloc(129*nbsommet+1);
-  name = malloc(129*nbsommet+1);
+  line =  calloc(nbsommet,sizeof(*line));
+  if (line==NULL) { printf("erreur alloaction tableau de char line\n"); exit(EXIT_FAILURE);}
+  *line = calloc(nbsommet*128,sizeof(**line));
+  if (*line==NULL) { printf("erreur alloaction tableau de char *name\n");free(line); exit(EXIT_FAILURE);}
+  name =  calloc(nbsommet,sizeof(*name));
+  if (name==NULL) { printf("erreur alloaction tableau de char name\n"); exit(EXIT_FAILURE);}
+  *name = calloc(nbsommet*128,sizeof(**name));
+  if (*name==NULL) { printf("erreur alloaction tableau de char *name\n");free(name); exit(EXIT_FAILURE);}
   g = graph_new(nbsommet,nbarcs);
+  for(indice=1;indice<nbsommet;indice++)
+  {
+    name[indice]=name[indice-1]+128;
+    line[indice]=line[indice-1]+128;
+  }
   for(indice=0;indice<g.size_vertices;indice++)                 //Boucle pour rensigner les sommets dans le graph
   {
 
-    fscanf(f,"%d %lf %lf %s", &numero, &lat, &longi, Ligne+(128*indice));
-    //strcat(Ligne, " ");
-    fgets(name+(128*indice),128,f);
-    //suppression des espaces et du passage à la ligne :
-    while(name+()==" "){}
+    fscanf(f,"%d %lf %lf %s", &numero, &lat, &longi, line[indice]);
+    //strcat(line, " ");
+    fgets(name[indice],128,f);
     if (mot[strlen(mot)-1]<32) mot[strlen(mot)-1]=0;
-<<<<<<< HEAD
-    g.data[indice] = vertex_new(numero, Ligne+(indice*128), longi, lat);
-    *tab_station = hashtable_put(ligne,numero,*tab_station); // on ajoute a notre table de hash le nouveau sommet
-=======
-    g.data[indice] = vertex_new(numero, Ligne+(indice*128), longi,lat, name+(129*indice));
-    hashtable_put(Ligne,numero,*tab_station); // on ajoute a notre table de hash le nouveau sommet
->>>>>>> 4803a12af4381acca18ce6898aa5aa2ac20369fc
+    g.data[indice] = vertex_new(numero, line[indice], longi, lat,name[indice]);
+    if(hashtable_put(name[indice],numero,*tab_station)==0){printf("cle non presente dans la tablle de hashage");} // on ajoute a notre table de hash le nouveau somme
   }
   fgets(mot,511,f);
   *nb_espace = count_space(mot); // add_space(char* station) (rajouter aussi \n) strcat(mot,"\n")
@@ -201,19 +198,10 @@ graph_t creation_graph(FILE* f,hashtable_t* tab_station)
   return g;
 }
 
-<<<<<<< HEAD
-int choix_algo(graphe_t g,hashtable_t tab_station)
-{
-
-  int depart,arrivee,choix,res = 0;
-  char * debut;
-  char * arrivee;
-=======
 int choix_int_algo(graph_t g)
 {
   int depart,arrivee,choix,res;
   hashtable_t tab_station;
->>>>>>> 4803a12af4381acca18ce6898aa5aa2ac20369fc
   printf("Choisissez l'algorithme a utiliser :\n1 : Dijkstra\n2 : A*\n");
   scanf("%d",&choix);
   if(choix==1)

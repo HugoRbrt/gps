@@ -27,7 +27,7 @@ CFLAGS=-c -g -I$(INCDIR)
 LDFLAGS= -lm
 
 #Les executables que l'on veut construire: a la fois ceux des tests et ceux des programmes finaux
-EXEDIR=$(BINDIR)/pccmain $(BINDIR)/test_algo $(BINDIR)/test_list $(BINDIR)/list $(BINDIR)/graph $(BINDIR)/arc $(BINDIR)/test_edge $(BINDIR)/test_readprint $(BINDIR)/test_hashtable
+EXEDIR=$(BINDIR)/pccmain $(BINDIR)/test_algo $(BINDIR)/test_list $(BINDIR)/list $(BINDIR)/graph $(BINDIR)/arc $(BINDIR)/test_edge $(BINDIR)/test_readprint $(BINDIR)/test_hashtable $(BINDIR)/test_space $(BINDIR)/space
 
 
 #Les fichiers binaire : ajouter les noms des nouveaux fichiers ici
@@ -66,8 +66,8 @@ $(BINDIR)/test_hashtable : $(OBJDIR)/element_hash.o $(OBJDIR)/list_hash.o $(OBJD
 	$(CC) -o $@ $^ $(LDFLAGS)
 
   #pour gerer les nom des stations pour la hashtable
-	$(BINDIR)/test_space : $(OBJDIR)/space.o  $(OBJDIR)/test_space.o
-		$(CC) -o $@ $^ $(LDFLAGS)
+$(BINDIR)/test_space : $(OBJDIR)/space.o  $(OBJDIR)/test_space.o
+	$(CC) -o $@ $^ $(LDFLAGS)
 
 # pour construire les fichiers binaires .o
 $(OBJDIR)/%.o : $(TESTS)/%.c

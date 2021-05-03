@@ -76,7 +76,7 @@ int hashtable_get_value(keys_t k, value_t* pv, hashtable_t t)
   unsigned int h = hash(k,t.size);
   if(hashtable_contains_key(k,t)== 0)
   {
-    *pv = 0;
+    *pv = -1;
     return 0;
   }
   //on se place dnas le else donc elle est presente, on recherche sa valeur;

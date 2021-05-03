@@ -1,6 +1,7 @@
 #include "algo.h"
 #include "lifo_int.h"
 #include "tadhash.h"
+#include "space.h"
 int Dijkstra(int depart, int arrivee, graph_t g)
 {
   list_t Atraiter = list_new();   //ligne 1
@@ -141,9 +142,9 @@ void print_chemin(int depart, int arrivee, graph_t g)
   lifo_print(parcours,g);
 }
 //retourne le graphe construit et prend en fonction la hashtable
-graphe_t creation_graphe(hashtable_t* tab_station)
+graphe_t creation_graphe(hashtable_t* tab_station, int * nb_espace)
 {
-  int depart,arrivee,count,choix,res=0;
+  int count,choix,res=0;
   FILE* f;
   int indice,nbsommet, nbarcs,numero,noeud_dep, noeud_arriv;
   double val;
@@ -168,9 +169,10 @@ graphe_t creation_graphe(hashtable_t* tab_station)
     fgets(mot,511,f);
     if (mot[strlen(mot)-1]<32) mot[strlen(mot)-1]=0;
     g.data[indice] = vertex_new(numero, Ligne+(indice*128), longi, lat);
-    *tab_station = hashtable_put(ligne,numero,tab_station); // on ajoute a notre table de hash le nouveau sommet
+    *tab_station = hashtable_put(ligne,numero,*tab_station); // on ajoute a notre table de hash le nouveau sommet
   }
   fgets(mot,511,f);
+  *nb_espace = count_space(mot); // add_space(char* station) (rajouter aussi \n) strcat(mot,"\n")
   for(indice=0;indice<g.size_egdes;indice++)                  //Boucle pour rensigner les arcs dans le graph
   {
     fscanf(f,"%d %d %lf ",&noeud_dep,&noeud_arriv,&val);
@@ -183,8 +185,10 @@ graphe_t creation_graphe(hashtable_t* tab_station)
   return g;
 }
 
-int choix_algo(graphe_t g)
+int choix_algo(graphe_t g,hashtable_t tab_station)
 {
+
+  int depart,arrivee,choix,res = 0;
   char * debut;
   char * arrivee;
   printf("Choisissez l'algorithme a utiliser :\n1 : Dijkstra\n2 : A*\n");
@@ -198,7 +202,6 @@ int choix_algo(graphe_t g)
     scanf("%s",&arrivee);puts("");
     res = Dijkstra(depart,arrivee,g);
     printf("resultat : %d",res);puts("");
-    tab_station = hashtable_delete(tab_station);
   }
   else if(choix==2)
   {
@@ -208,15 +211,13 @@ int choix_algo(graphe_t g)
     scanf("%d",&arrivee);puts("");
     res = Astar(depart,arrivee,g);
     printf("resultat : %d",res);puts("");
-    tab_station = hashtable_delete(tab_station);
-
   }
   else{printf("Error : wrong input");exit(0);}
   if(res==1){printf("Chemin le plus court : ");print_chemin(depart,arrivee,g);}
 
   puts("suppression graph et liste...");
-  g = graph_delete(g);
-  tab_station = hashtable_delete(tab_station);
+  g = graph_delete(g); //suppresion du graphe
+  tab_station = hashtable_delete(tab_station); //suppression de la table
   puts("*fin*");
   fclose(f);
   return g.data[arrivee].cout;

@@ -71,6 +71,7 @@ graph_t graph_delete(graph_t g){
   for(indice=0;indice<g.size_vertices;indice++){
     listedge_delete(g.data[indice].edges);
     free(g.data[indice].ligne);
+    free(g.data[indice].nom);
   }
   free(g.data);
   return g;

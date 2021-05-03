@@ -2,6 +2,7 @@
 #include "lifo_int.h"
 #include "tadhash.h"
 #include "space.h"
+#include "space.h"
 int Dijkstra(int depart, int arrivee, graph_t g)
 {
   list_t Atraiter = list_new();   //ligne 1
@@ -140,7 +141,6 @@ void print_chemin(int depart, int arrivee, graph_t g)
   //la liste est complete il ne reste plus qu a l'afficher
   //printf("%d",indice);puts("");
   lifo_print(parcours,g);
-  printf("nom de la station de depart : <%s>",g.data[depart].nom);
 }
 
 //retourne le graph construit et prend en fonction la hashtable
@@ -155,7 +155,6 @@ graph_t creation_graph(FILE* f,hashtable_t* tab_station, int* nb_espace)
   char mot[512];
   graph_t g;
 
-  f=fopen("text/graphe2.txt","r");
 
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
   fscanf(f,"%d %d ",&nbsommet,&nbarcs);
@@ -195,6 +194,10 @@ graph_t creation_graph(FILE* f,hashtable_t* tab_station, int* nb_espace)
   {
     g.data[count].sizeedges = listedge_size(g.data[count].edges);
   }
+  free(*name);
+  free(*line);
+  free(line);      //possiblement faux (a verifier sur linux)
+  free(name);
   return g;
 }
 
@@ -229,7 +232,6 @@ int choix_int_algo(graph_t g)
   puts("suppression graph et liste...");
   g = graph_delete(g); //suppresion du graphe
   tab_station = hashtable_delete(tab_station); //suppression de la table
-  puts("*fin*");
   //fonction a ne pas oublier après : fclose(f)
   return g.data[arrivee].cout;
 }
@@ -250,6 +252,8 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
     scanf("%s",depart);
     printf("Choisissez le nom de la station arrivee : ");
     scanf("%s",arrivee);puts("");
+    depart = add_space(depart,count_space(g.data[5].nom));
+    arrivee = add_space(arrivee,count_space(g.data[5].nom));
     //fait mais pas sur
     if(!(hashtable_get_value(depart, &num_depart, *tab_station)&&hashtable_get_value(arrivee, &num_arrivee, *tab_station))){printf("une des station n'existe pas");exit(0);}
 //a finir
@@ -257,12 +261,16 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
     res = Dijkstra(num_depart,num_arrivee,g);
     printf("resultat : %d",res);puts("");
   }
+
+
   else if(choix==2)
   {
     puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
     scanf("%s",depart);puts("");
     printf("Choisissez le numero de la station arrivee : ");
     scanf("%s",arrivee);puts("");
+    depart = add_space(depart,count_space(g.data[5].nom));
+    arrivee = add_space(arrivee,count_space(g.data[5].nom));
     //fait mais pas sur
     if(!(hashtable_get_value(depart, &num_depart, *tab_station)&&hashtable_get_value(arrivee, &num_arrivee, *tab_station))){printf("une des station n'existe pas");exit(0);}
 //a finir
@@ -274,11 +282,11 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
   if(res==1){printf("Chemin le plus court : ");print_chemin(num_depart,num_arrivee,g);}
 
   puts("suppression graph et liste...");
-  g = graph_delete(g);
   *tab_station = hashtable_delete(*tab_station);
-  puts("*fin*");
   //fonction a ne pas oublier après : fclose(f)
-  return g.data[num_arrivee].cout;
+  int cout = g.data[num_arrivee].cout;
+  g = graph_delete(g);
+  return cout;
 }
 
 graph_t same_name(graph_t g, int numero)

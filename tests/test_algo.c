@@ -10,16 +10,17 @@ int main(int argc, char** argv)
 {
   int depart,arrivee,count,choix,res=0;
   FILE* f;
-  int indice,nbsommet, nbarcs,numero,noeud_dep, noeud_arriv;
+  int indice,nbsommet, nbarcs,numero,noeud_dep, noeud_arriv,nb_space;
   double val;
   double lat,longi ;
   char** line;
   char** name;
   char mot[512] ;
   graph_t g;
+  hashtable_t tab_station = hashtable_new(30); //(choix de 30 arbitraire)
+f=fopen("text/metroetu.txt","r");
 
   f=fopen("text/metroetu.txt","r");
-
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
   fscanf(f,"%d %d ",&nbsommet,&nbarcs);
   fgets(mot,511,f);
@@ -56,6 +57,10 @@ int main(int argc, char** argv)
   {
     g.data[count].sizeedges = listedge_size(g.data[count].edges);
   }
+
+  //choix algorithme est execution de l'algorithme
+  int cout = choix_int_algo(g);
+  /*
   printf("Choisissez l'algorithme a utiliser :\n1 : Dijkstra\n2 : A*\n");
   scanf("%d",&choix);
   if(choix==1)
@@ -83,8 +88,7 @@ int main(int argc, char** argv)
 
   puts("suppression graph et liste...");
   g = graph_delete(g);
-  free(line);      //possiblement faux (a verifier sur linux)
-  free(name);
+  */
   puts("*fin*");
   fclose(f);
 }

@@ -19,7 +19,10 @@ unsigned int hash(char* s, int n){
   unsigned int h = 0;
   int i ;
   for(i = strlen(s) - 1 ; i >= 0 ; i-- ) {
-    h = h * 31 + s[i];
+    if((int)s[i] != 32)
+    {
+      h = h * 31 + (int)s[i];
+    }
   }
   return h % n;
 }

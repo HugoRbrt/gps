@@ -7,7 +7,7 @@ int count_space(char* mot)
 {
   int nb_space = 0;
   int count = 0;
-  while(mot[count]==' ')
+  while(mot[count]=='\t')
   {
     nb_space++;
     count++;
@@ -24,7 +24,7 @@ char* add_space(char* mot, int nb_space)
   char* new_word = calloc(size,sizeof(char));
   while(count<nb_space)
   {
-    strcat(new_word," ");
+    strcat(new_word,"\t");
     count++;
   }
   strcat(new_word,mot);

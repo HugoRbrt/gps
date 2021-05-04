@@ -46,6 +46,9 @@ list_t list_addsort( vertex_t * vert,  list_t l ){
 list_t list_delfirst( list_t l ) {
   assert(!list_isempty(l));
   list_t p = l->next;
+  //free(l->v->ligne);
+  //free(l->v->nom);
+  //listedge_delete(l->v->edges);
   free( l );
   return p;
 }

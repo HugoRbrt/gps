@@ -27,8 +27,11 @@ int main(int argc, char** argv)
   puts("affichage liste avec e3 et e1 triee:");
   list_print(liste);puts("");
 
+  liste = list_addsort(&e2,liste);
+puts("affichage liste avec e1, e2 et e3 triee:");
+list_print(liste);puts("");
 
-  printf("affichage taille liste (normalement 2): ");
+  printf("affichage taille liste (normalement 3): ");
   printf("%d",list_length(liste));puts("");
 
   printf("affichage du nom de maillon de numero 2 (normalement num1) : %s",list_findnum(2,liste)->v->ligne);

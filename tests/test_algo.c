@@ -5,7 +5,6 @@
 #include <string.h>
 #include <float.h>
 
-
 int main(int argc, char** argv)
 {
   int depart,arrivee,count,choix,res=0;
@@ -17,9 +16,6 @@ int main(int argc, char** argv)
   char** name;
   char mot[512] ;
   graph_t g;
-  hashtable_t tab_station = hashtable_new(30); //(choix de 30 arbitraire)
-f=fopen("text/metroetu.txt","r");
-
   f=fopen("text/metroetu.txt","r");
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
   fscanf(f,"%d %d ",&nbsommet,&nbarcs);
@@ -45,8 +41,6 @@ f=fopen("text/metroetu.txt","r");
     if (mot[strlen(mot)-1]<32) mot[strlen(mot)-1]=0;
     g.data[indice] = vertex_new(numero, line[indice], longi, lat,name[indice]);
   }
-
-
   fgets(mot,511,f);
   for(indice=0;indice<g.size_egdes;indice++)                  //Boucle pour rensigner les arcs dans le graph
   {
@@ -57,38 +51,10 @@ f=fopen("text/metroetu.txt","r");
   {
     g.data[count].sizeedges = listedge_size(g.data[count].edges);
   }
-
   //choix algorithme est execution de l'algorithme
   int cout = choix_int_algo(g);
-  /*
-  printf("Choisissez l'algorithme a utiliser :\n1 : Dijkstra\n2 : A*\n");
-  scanf("%d",&choix);
-  if(choix==1)
-  {
-    puts("DEBUT DIJKSTRA");
-    printf("Choisissez le numero de la station depart : ");
-    scanf("%d",&depart);
-    printf("Choisissez le numero de la station arrivee : ");
-    scanf("%d",&arrivee);puts("");
-    res = Dijkstra(depart,arrivee,g);
-    printf("resultat : %d",res);puts("");
-  }
-  else if(choix==2)
-  {
-    puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
-    scanf("%d",&depart);
-    printf("Choisissez le numero de la station arrivee : ");
-    scanf("%d",&arrivee);puts("");
-    res = Astar(depart,arrivee,g);
-    printf("resultat : %d",res);puts("");
-
-  }
-  else{printf("Error : wrong input");exit(0);}
-  if(res==1){printf("Chemin le plus court : ");print_chemin(depart,arrivee,g);}
-
-  puts("suppression graph et liste...");
   g = graph_delete(g);
-  */
+  free(*line);free(line);free(*name);free(name);
   puts("*fin*");
   fclose(f);
 }

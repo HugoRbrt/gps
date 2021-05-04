@@ -205,7 +205,6 @@ graph_t creation_graph(FILE* f,hashtable_t* tab_station, int* nb_espace)
 int choix_int_algo(graph_t g)
 {
   int depart,arrivee,choix,res;
-  hashtable_t tab_station;
   printf("Choisissez l'algorithme a utiliser :\n1 : Dijkstra\n2 : A*\n");
   scanf("%d",&choix);
   if(choix==1)
@@ -230,9 +229,7 @@ int choix_int_algo(graph_t g)
   else{printf("Error : wrong input");exit(0);}
   if(res==1){printf("Chemin le plus court : ");print_chemin(depart,arrivee,g);}
 
-  puts("suppression graph et liste...");
-  g = graph_delete(g); //suppresion du graphe
-  tab_station = hashtable_delete(tab_station); //suppression de la table
+  puts("suppression graph et liste..."); //suppresion du graphe
   //fonction a ne pas oublier après : fclose(f)
   return g.data[arrivee].cout;
 }
@@ -248,11 +245,11 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
   arrivee = malloc(128);
   if(choix==1)
   {
-    puts("DEBUT DIJKSTRA");
-    printf("Choisissez le nom de la station depart : ");
-    scanf("%s",depart);
-    printf("Choisissez le nom de la station arrivee : ");
-    scanf("%s",arrivee);puts("");
+    puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
+    scanf( "%[^\n]", depart );
+    fgetc( stdin );
+    printf("Choisissez le numero de la station arrivee : ");
+    scanf( "%[^\n]", arrivee );puts("");fgetc( stdin );
     depart = add_space(depart,count_space(g.data[5].nom));
     arrivee = add_space(arrivee,count_space(g.data[5].nom));
     if(!(hashtable_get_value(depart, &num_depart, *tab_station)&&hashtable_get_value(arrivee, &num_arrivee, *tab_station))){printf("une des station n'existe pas");exit(0);}
@@ -267,7 +264,7 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
   else if(choix==2)
   {
     puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
-    scanf( "%[^\n]", depart );printf("%s",depart);
+    scanf( "%[^\n]", depart );
     fgetc( stdin );
     printf("Choisissez le numero de la station arrivee : ");
     scanf( "%[^\n]", arrivee );puts("");fgetc( stdin );

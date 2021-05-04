@@ -7,9 +7,9 @@
 
 int main(int argc, char** argv)
 {
-  vertex_t e1 = vertex_new(0,"n",0.0,0.0);
-  vertex_t e2 = vertex_new(1,"num0",-1.0,3.0);
-  vertex_t e3 = vertex_new(2,"num1",0.0,-7.0);
+  vertex_t e1 = vertex_new(0,"n",0.0,0.0,"nom n");
+  vertex_t e2 = vertex_new(1,"num0",-1.0,3.0,"nom num0");
+  vertex_t e3 = vertex_new(2,"num1",0.0,-7.0,"nom num1");
   graph_t g = graph_new(3,0);
 
   puts("affichage vertex e1 :");

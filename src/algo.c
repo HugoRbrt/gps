@@ -108,6 +108,7 @@ int Astar(int depart, int arrivee, graph_t g)
       }//ligne20 de commentaire
     }//ligne21 de commentaire
   }//ligne22 de commentaire
+  printf("KO");getchar();getchar();
   Atteint = list_delete(Atteint);Atraiter = list_delete(Atraiter);
   if(g.data[arrivee].cout<DBL_MAX)//ligne23
   {
@@ -242,9 +243,9 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
   char* depart=NULL;int num_depart;
   char* arrivee=NULL;int num_arrivee;
   printf("Choisissez l'algorithme a utiliser :\n1 : Dijkstra\n2 : A*\n");
-  scanf("%d",&choix);
+  scanf("%d",&choix);fgetc( stdin );
   depart = malloc(128);
-  arrivee = malloc(129);
+  arrivee = malloc(128);
   if(choix==1)
   {
     puts("DEBUT DIJKSTRA");
@@ -254,29 +255,32 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
     scanf("%s",arrivee);puts("");
     depart = add_space(depart,count_space(g.data[5].nom));
     arrivee = add_space(arrivee,count_space(g.data[5].nom));
-    //fait mais pas sur
     if(!(hashtable_get_value(depart, &num_depart, *tab_station)&&hashtable_get_value(arrivee, &num_arrivee, *tab_station))){printf("une des station n'existe pas");exit(0);}
-//a finir
 
+    g = same_name(g,num_depart);
+    g = same_name(g,num_arrivee);
     res = Dijkstra(num_depart,num_arrivee,g);
     printf("resultat : %d",res);puts("");
+    free(depart);free(arrivee);
   }
-
 
   else if(choix==2)
   {
     puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
-    scanf("%s",depart);puts("");
+    scanf( "%[^\n]", depart );printf("%s",depart);
+    fgetc( stdin );
     printf("Choisissez le numero de la station arrivee : ");
-    scanf("%s",arrivee);puts("");
+    scanf( "%[^\n]", arrivee );puts("");fgetc( stdin );
     depart = add_space(depart,count_space(g.data[5].nom));
     arrivee = add_space(arrivee,count_space(g.data[5].nom));
-    //fait mais pas sur
+
     if(!(hashtable_get_value(depart, &num_depart, *tab_station)&&hashtable_get_value(arrivee, &num_arrivee, *tab_station))){printf("une des station n'existe pas");exit(0);}
-//a finir
+
+    g = same_name(g,num_depart);
+    g = same_name(g,num_arrivee);
     res = Astar(num_depart,num_arrivee,g);
     printf("resultat : %d",res);puts("");
-
+    free(depart);free(arrivee);
   }
   else{printf("Error : wrong input");exit(0);}
   if(res==1){printf("Chemin le plus court : ");print_chemin(num_depart,num_arrivee,g);}
@@ -293,21 +297,18 @@ graph_t same_name(graph_t g, int numero)
 {
   char* nom = g.data[numero].nom;
   listedge_t liste = g.data[numero].edges;
-  int arriver;
-  edge_t e;
-  e.cout = 0;
-  int k,nb_add;
-
-  for(k=0;k<g.data[numero].sizeedges;k++)
+  int k,nb=0;
+  int longueur;
+  longueur = listedge_size(g.data[numero].edges);
+  for(k=0;k<longueur;k++)
   {
-    arriver = liste->val.arrivee;
-    if(strcmp(nom,g.data[arriver].nom)==0)
+    if(strcmp(nom,g.data[liste->val.arrivee].nom)==0)
     {
-      e.arrivee = liste->val.arrivee;
-      g.data[numero].edges = listedge_add(e,g.data[numero].edges);//POSSIBILITE ERREUR, A VERIFIER
-      nb_add++;
+      g.data[numero].edges = listedge_add(edge_new(liste->val.arrivee,0),g.data[numero].edges);
+      nb++;
     }
+    liste = liste->next;
   }
-  g.data[numero].sizeedges+=nb_add;
+  g.data[numero].sizeedges+=nb;
   return g;
 }

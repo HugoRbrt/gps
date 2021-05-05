@@ -70,7 +70,7 @@ $(BINDIR)/test_space : $(OBJDIR)/space.o  $(OBJDIR)/test_space.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 	#pour gerer les nom des stations pour la hashtable
-$(BINDIR)/test_affichage : $(OBJDIR)/affichage.o  $(OBJDIR)/test_affichage.o
+$(BINDIR)/test_affichage :  $(OBJDIR)/test_affichage.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 # pour construire les fichiers binaires .o

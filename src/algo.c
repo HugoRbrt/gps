@@ -2,6 +2,7 @@
 #include "lifo_int.h"
 #include "tadhash.h"
 #include "space.h"
+#include "assert.h"
 
 int Dijkstra(int depart, int arrivee, graph_t g)
 {

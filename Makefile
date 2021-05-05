@@ -24,7 +24,7 @@ CC=gcc
 CFLAGS=-c -g -I$(INCDIR)
 
 #Les options de l'editeur de liens : -lm pour la bibliothèque mathématique. Voir les Makefile de TP pour ajouter la SDL si besoin
-LDFLAGS= -lm
+LDFLAGS= -lSDL2 -lSDL2_gfx -lSDL2_ttf -lSDL2_image -lSDL2_phelma -lm
 
 #Les executables que l'on veut construire: a la fois ceux des tests et ceux des programmes finaux
 EXEDIR=$(BINDIR)/pccmain $(BINDIR)/test_algo $(BINDIR)/test_list $(BINDIR)/list $(BINDIR)/graph $(BINDIR)/arc $(BINDIR)/test_edge $(BINDIR)/test_readprint $(BINDIR)/test_hashtable $(BINDIR)/test_space $(BINDIR)/space $(BINDIR)/test_affichage

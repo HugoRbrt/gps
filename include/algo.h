@@ -2,11 +2,13 @@
 #include "list.h"
 #include "arc.h"
 #include "tadhash.h"
+#include "affichage.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
 #include <float.h>
+#include <SDL2/SDL_phelma.h>
 
 //Algorithme Dijkstra retourne 1 si chemin trouve, 0 sinon
 int Dijkstra(int depart, int arrivee, graph_t g);
@@ -22,6 +24,9 @@ void print_chemin(int depart, int arrivee, graph_t g);
 
 //retourne le graph d'un fichier texte mais aussi une table de hash des numero avec le  nom des sommets
 graph_t creation_graph(FILE* f, hashtable_t * h, int* nb_espace);
+
+//retourne le graph d'un fichier texte mais aussi une table de hash des numero avec le  nom des sommets
+graph_t creation_graph_affichage(FILE* f,hashtable_t* tab_station, int* nb_espace,SDL_PHWindow* f1)
 
 //realise le calcule du PCC et dit le pcc et prend le graphe construit avec la fonction precedent avec numero station
 int choix_int_algo(graph_t g);

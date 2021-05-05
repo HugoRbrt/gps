@@ -2,7 +2,7 @@
 #include "lifo_int.h"
 #include "tadhash.h"
 #include "space.h"
-#include "space.h"
+
 int Dijkstra(int depart, int arrivee, graph_t g)
 {
   list_t Atraiter = list_new();   //ligne 1

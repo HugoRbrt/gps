@@ -213,8 +213,8 @@ graph_t creation_graph_affichage(FILE* f,hashtable_t* tab_station, int* nb_espac
   char** name=NULL ;
   char mot[512];
   graph_t g;
-  int max_x = 0;
-  int max_y = 0;
+  double max_x = 0;
+  double max_y = 0;
 
 
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
@@ -249,6 +249,7 @@ graph_t creation_graph_affichage(FILE* f,hashtable_t* tab_station, int* nb_espac
   *nb_espace = count_space(mot); // add_space(char* station) (rajouter aussi \n) strcat(mot,"\n")
   for(indice=0;indice<g.size_egdes;indice++)                  //Boucle pour rensigner les arcs dans le graph
   {
+
     fscanf(f,"%d %d %lf ",&noeud_dep,&noeud_arriv,&val);
     g.data[noeud_dep].edges = listedge_add(edge_new(noeud_arriv,(double)val),g.data[noeud_dep].edges );
     trace_arc(f1,g.data[noeud_dep].x,g.data[noeud_dep].y,g.data[noeud_arriv].x,g.data[noeud_arriv].y,max_x,max_y);
@@ -312,8 +313,8 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
     fgetc( stdin );
     printf("Choisissez le numero de la station arrivee : ");
     scanf( "%[^\n]", arrivee );puts("");fgetc( stdin );
-    depart = add_space(depart,count_space(g.data[5].nom));
-    arrivee = add_space(arrivee,count_space(g.data[5].nom));
+    depart = add_space(depart,count_space(g.data[1].nom));
+    arrivee = add_space(arrivee,count_space(g.data[1].nom));
     if(!(hashtable_get_value(depart, &num_depart, *tab_station)&&hashtable_get_value(arrivee, &num_arrivee, *tab_station))){printf("une des station n'existe pas");exit(0);}
 
     g = same_name(g,num_depart);

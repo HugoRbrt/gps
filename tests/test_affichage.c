@@ -2,16 +2,19 @@
 #include <stdlib.h>
 #include <SDL2/SDL_phelma.h>
 #include "graph.h"
+#include "tadhash.h"
+#include "algo.h"
 
 int main()
 {
   //declaration de variables
   FILE* f = fopen("text/metroetu.txt","r");
+  if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
   hashtable_t tab_station = hashtable_new(30);
-  int* nb_space;
+  int nb_space;
+  graph_t g;
   //creation de la fenetre,
   SDL_PHWindow* f1=NULL ;
-
   f1=SDL_PH_CreateWindow(700,700);
 
   if (f1==NULL)
@@ -20,10 +23,8 @@ int main()
   exit(EXIT_FAILURE) ;
     }
   SDL_PH_ClearWindow(f1);
-
   //on creer le graphe
-  g = creation_graph_affichage(FILE* f,tab_station, nb_space,f1);
-
+  g = creation_graph_affichage(f ,&tab_station, &nb_space,f1);
   SDL_PH_FlushWindow(f1);
 
   puts("Taper une touche pour continuer") ;

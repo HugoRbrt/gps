@@ -18,7 +18,8 @@ int main(int argc, char** argv)
   char mot[512] ;
   graph_t g;
   hashtable_t tab_station = hashtable_new(30); //(choix de 30 arbitraire)
-f=fopen("text/metroetu.txt","r");
+  f=fopen("text/metroetu.txt","r");
+  if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
 
   //creation du graph :
   g = creation_graph(f,&tab_station,&nb_space);

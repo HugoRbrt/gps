@@ -26,7 +26,7 @@ void print_chemin(int depart, int arrivee, graph_t g);
 graph_t creation_graph(FILE* f, hashtable_t * h, int* nb_espace);
 
 //retourne le graph d'un fichier texte mais aussi une table de hash des numero avec le  nom des sommets
-graph_t creation_graph_affichage(FILE* f,hashtable_t* tab_station, int* nb_espace,SDL_PHWindow* f1)
+graph_t creation_graph_affichage(FILE* f,hashtable_t* tab_station, int* nb_espace,SDL_PHWindow* f1);
 
 //realise le calcule du PCC et dit le pcc et prend le graphe construit avec la fonction precedent avec numero station
 int choix_int_algo(graph_t g);

@@ -109,7 +109,6 @@ int Astar(int depart, int arrivee, graph_t g)
       }//ligne20 de commentaire
     }//ligne21 de commentaire
   }//ligne22 de commentaire
-  printf("KO");getchar();getchar();
   Atteint = list_delete(Atteint);Atraiter = list_delete(Atraiter);
   if(g.data[arrivee].cout<DBL_MAX)//ligne23
   {
@@ -143,6 +142,35 @@ void print_chemin(int depart, int arrivee, graph_t g)
   //la liste est complete il ne reste plus qu a l'afficher
   //printf("%d",indice);puts("");
   lifo_print(parcours,g);
+}
+
+void affichage_chemin(int depart, int arrivee,double max_x,double max_y,double min_x,double min_y, graph_t g,SDL_PHWindow* f1)
+{
+  //on cree la pile et on empile l'arrivée
+  lifo_int_t parcours = lifo_new();
+  int numero1,numero2;
+  //printf("Chemin pour aller de %d a %d :",depart, arrivee);puts("");
+  int indice = arrivee;
+
+
+  while(indice != depart)
+  {
+    //on empile tout nos stations
+    //printf("%d <- ",indice);
+    parcours = lifo_push(indice,parcours);
+    indice = g.data[indice].pere;
+  }
+  parcours = lifo_push(depart,parcours);
+  //la liste est complete il ne reste plus qu a l'afficher
+  //printf("%d",indice);puts("");
+  numero1 = lifo_pop(&parcours);
+  while(!lifo_is_empty(parcours))
+  {
+    numero2 = lifo_pop(&parcours);
+    trace_arc(f1,g.data[numero1].x,g.data[numero1].y,g.data[numero2].x,g.data[numero2].y,max_x,max_y,min_x,min_y,SDL_PH_RED);
+    numero1 = numero2;
+  }
+  SDL_PH_FlushWindow(f1);
 }
 
 //retourne le graph construit et prend en fonction la hashtable
@@ -183,7 +211,7 @@ graph_t creation_graph(FILE* f,hashtable_t* tab_station, int* nb_espace)
     fgets(name[indice],128,f);
     if (mot[strlen(mot)-1]<32) mot[strlen(mot)-1]=0;
     g.data[indice] = vertex_new(numero, line[indice], longi, lat,name[indice]);
-    if(hashtable_put(name[indice],numero,*tab_station)==0){printf("cle non presente dans la tablle de hashage");} // on ajoute a notre table de hash le nouveau somme
+    if(hashtable_put(name[indice],numero,*tab_station)==0){printf("cle non presente dans la table de hashage");} // on ajoute a notre table de hash le nouveau somme
   }
   fgets(mot,511,f);
   *nb_espace = count_space(mot); // add_space(char* station) (rajouter aussi \n) strcat(mot,"\n")
@@ -203,7 +231,7 @@ graph_t creation_graph(FILE* f,hashtable_t* tab_station, int* nb_espace)
   return g;
 }
 
-graph_t creation_graph_affichage(FILE* f,hashtable_t* tab_station, int* nb_espace,SDL_PHWindow* f1)
+graph_t creation_graph_affichage(FILE* f,double *  max_x,double* max_y,double* min_x,double* min_y,hashtable_t* tab_station, int* nb_espace,SDL_PHWindow* f1)
 {
   int depart,arrivee,count,choix,res=0;
   int indice,nbsommet, nbarcs,numero,noeud_dep, noeud_arriv;
@@ -213,8 +241,6 @@ graph_t creation_graph_affichage(FILE* f,hashtable_t* tab_station, int* nb_espac
   char** name=NULL ;
   char mot[512];
   graph_t g;
-  double max_x = 0;
-  double max_y = 0;
 
 
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
@@ -242,7 +268,7 @@ graph_t creation_graph_affichage(FILE* f,hashtable_t* tab_station, int* nb_espac
     fgets(name[indice],128,f);
     if (mot[strlen(mot)-1]<32) mot[strlen(mot)-1]=0;
     g.data[indice] = vertex_new(numero, line[indice], longi, lat,name[indice]);
-    max_x_y(&max_x,&max_y, lat, longi); //permet de trouver les max des coordonnes
+    max_x_y(max_x,max_y,min_x,min_y, lat, longi); //permet de trouver les max des coordonnes
     if(hashtable_put(name[indice],numero,*tab_station)==0){printf("cle non presente dans la tablle de hashage");} // on ajoute a notre table de hash le nouveau somme
   }
   fgets(mot,511,f);
@@ -252,9 +278,9 @@ graph_t creation_graph_affichage(FILE* f,hashtable_t* tab_station, int* nb_espac
 
     fscanf(f,"%d %d %lf ",&noeud_dep,&noeud_arriv,&val);
     g.data[noeud_dep].edges = listedge_add(edge_new(noeud_arriv,(double)val),g.data[noeud_dep].edges );
-    trace_arc(f1,g.data[noeud_dep].x,g.data[noeud_dep].y,g.data[noeud_arriv].x,g.data[noeud_arriv].y,max_x,max_y);
+    trace_arc(f1,g.data[noeud_dep].x,g.data[noeud_dep].y,g.data[noeud_arriv].x,g.data[noeud_arriv].y,*max_x,*max_y,*min_x,*min_y,SDL_PH_BLACK);
   }
-  for(count=0;count<g.size_vertices;count++)                //renseigne la longueur leqs listes
+  for(count=0;count<g.size_vertices;count++)                //renseigne la longueur des listes
   {
     g.data[count].sizeedges = listedge_size(g.data[count].edges);
   }
@@ -276,22 +302,19 @@ int choix_int_algo(graph_t g)
     printf("Choisissez le numero de la station depart : ");
     scanf("%d",&depart);
     printf("Choisissez le numero de la station arrivee : ");
-    scanf("%d",&arrivee);puts("");
+    scanf("%d",&arrivee);
     res = Dijkstra(depart,arrivee,g);
-    printf("resultat : %d",res);puts("");
   }
   else if(choix==2)
   {
     puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
     scanf("%d",&depart);puts("");
     printf("Choisissez le numero de la station arrivee : ");
-    scanf("%d",&arrivee);puts("");
+    scanf("%d",&arrivee);
     res = Astar(depart,arrivee,g);
-    printf("resultat : %d",res);puts("");
   }
   else{printf("Error : wrong input");exit(0);}
   if(res==1){printf("Chemin le plus court : ");print_chemin(depart,arrivee,g);}
-
   puts("suppression graph et liste..."); //suppresion du graphe
   //fonction a ne pas oublier après : fclose(f)
   return g.data[arrivee].cout;
@@ -346,6 +369,61 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
   if(res==1){printf("Chemin le plus court : ");print_chemin(num_depart,num_arrivee,g);}
 
   puts("suppression graph et liste...");
+  *tab_station = hashtable_delete(*tab_station);
+  //fonction a ne pas oublier après : fclose(f)
+  int cout = g.data[num_arrivee].cout;
+  g = graph_delete(g);
+  return cout;
+}
+
+int choix_char_algo_affichage(graph_t g,double max_x,double max_y,double min_x,double min_y,hashtable_t* tab_station,SDL_PHWindow* f1)
+{
+  int choix,res;
+  char* depart=NULL;int num_depart;
+  char* arrivee=NULL;int num_arrivee;
+  printf("Choisissez l'algorithme a utiliser :\n1 : Dijkstra\n2 : A*\n");
+  scanf("%d",&choix);fgetc( stdin );
+  depart = malloc(128);
+  arrivee = malloc(128);
+  if(choix==1)
+  {
+    puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
+    scanf( "%[^\n]", depart );
+    fgetc( stdin );
+    printf("Choisissez le numero de la station arrivee : ");
+    scanf( "%[^\n]", arrivee );puts("");fgetc( stdin );
+    depart = add_space(depart,count_space(g.data[1].nom));
+    arrivee = add_space(arrivee,count_space(g.data[1].nom));
+    if(!(hashtable_get_value(depart, &num_depart, *tab_station)&&hashtable_get_value(arrivee, &num_arrivee, *tab_station))){printf("une des station n'existe pas");exit(0);}
+
+    g = same_name(g,num_depart);
+    g = same_name(g,num_arrivee);
+    res = Dijkstra(num_depart,num_arrivee,g);
+    printf("resultat : %d",res);puts("");
+    free(depart);free(arrivee);
+  }
+
+  else if(choix==2)
+  {
+    puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
+    scanf( "%[^\n]", depart );
+    fgetc( stdin );
+    printf("Choisissez le numero de la station arrivee : ");
+    scanf( "%[^\n]", arrivee );puts("");fgetc( stdin );
+    depart = add_space(depart,count_space(g.data[5].nom));
+    arrivee = add_space(arrivee,count_space(g.data[5].nom));
+
+    if(!(hashtable_get_value(depart, &num_depart, *tab_station)&&hashtable_get_value(arrivee, &num_arrivee, *tab_station))){printf("une des station n'existe pas");exit(0);}
+
+    g = same_name(g,num_depart);
+    g = same_name(g,num_arrivee);
+    res = Astar(num_depart,num_arrivee,g);
+    free(depart);free(arrivee);
+  }
+  else{printf("Error : wrong input");exit(0);}
+  if(res==1){affichage_chemin(num_depart,num_arrivee,max_x,max_y,min_x,min_y,g,f1);printf(" Appuyez sur ENTREE pour supprimer") ;
+  getchar() ;}
+  else {printf("chemin impossible\n");}
   *tab_station = hashtable_delete(*tab_station);
   //fonction a ne pas oublier après : fclose(f)
   int cout = g.data[num_arrivee].cout;

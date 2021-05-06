@@ -16,7 +16,7 @@ int main(int argc, char** argv)
   char** name;
   char mot[512] ;
   graph_t g;
-  f=fopen("text/metroetu.txt","r");
+  f=fopen("text/grapheUSAOuest.txt","r");
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
   fscanf(f,"%d %d ",&nbsommet,&nbarcs);
   fgets(mot,511,f);

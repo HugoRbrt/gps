@@ -2,13 +2,14 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-
 #include "arc.h"
 #include "graph.h"
 
+//pas de fuite memoire
 
 int main(int argc, char** argv)
 {
+  //initialisation des elements
   FILE* f=NULL;
   int indice,nbsommet, nbarcs,numero,noeud_dep, noeud_arriv, val;
   double lat,longi ;
@@ -16,9 +17,8 @@ int main(int argc, char** argv)
   char** name=NULL ;
   char mot[512] ;
   graph_t g;
-
+//ouverture fichier et allocation tableau de char
   f=fopen("text/graphe2.txt","r");
-
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
   fscanf(f,"%d %d ",&nbsommet,&nbarcs);
   fgets(mot,511,f);
@@ -61,6 +61,6 @@ int main(int argc, char** argv)
   g = graph_delete(g);
 
   puts("*fin*");
-
+  free(line);free(name);free(*line);free(*name);
   fclose(f);
 }

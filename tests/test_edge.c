@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
 #include "arc.h"
 
+//pas de fuite memoire
 
 int main(int argc, char** argv)
 {

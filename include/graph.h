@@ -35,6 +35,9 @@ vertex_t vertex_new(int num, char* line, double longi, double lat, char* name);
 //affiche une ligne de tableau
 void vertex_print(vertex_t v);
 
+//supprime et libere un vertex
+vertex_t vertex_delete(vertex_t v);
+
 //affiche le tableau
 void graph_print(graph_t g);
 

@@ -142,6 +142,7 @@ void print_chemin(int depart, int arrivee, graph_t g)
   //la liste est complete il ne reste plus qu a l'afficher
   //printf("%d",indice);puts("");
   lifo_print(parcours,g);
+  parcours = lifo_delete(parcours);
 }
 
 void affichage_chemin(int depart, int arrivee,double max_x,double max_y,double min_x,double min_y, graph_t g,SDL_PHWindow* f1)
@@ -369,10 +370,8 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
   if(res==1){printf("Chemin le plus court : ");print_chemin(num_depart,num_arrivee,g);}
 
   puts("suppression graph et liste...");
-  *tab_station = hashtable_delete(*tab_station);
   //fonction a ne pas oublier après : fclose(f)
   int cout = g.data[num_arrivee].cout;
-  g = graph_delete(g);
   return cout;
 }
 

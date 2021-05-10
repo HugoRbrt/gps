@@ -7,6 +7,7 @@
 
 int main(int argc, char** argv)
 {
+  //initialisation des elements
   int depart,arrivee,count,choix,res=0;
   FILE* f;
   int indice,nbsommet, nbarcs,numero,noeud_dep, noeud_arriv,nb_space;
@@ -16,7 +17,8 @@ int main(int argc, char** argv)
   char** name;
   char mot[512] ;
   graph_t g;
-  f=fopen("text/grapheUSAOuest.txt","r");
+  //ouverture fichier et allocation tableaux char
+  f=fopen("text/graphe1.txt","r");
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
   fscanf(f,"%d %d ",&nbsommet,&nbarcs);
   fgets(mot,511,f);

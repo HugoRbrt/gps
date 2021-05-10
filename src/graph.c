@@ -15,6 +15,13 @@ int graph_recherche(char* l, graph_t g)
   return -1;
 }
 
+vertex_t vertex_delete(vertex_t v)
+{
+  free(v.nom);
+  free(v.ligne);
+  return v;
+}
+
 graph_t graph_new(int nbsommet, int nbarcs)
 {
   graph_t g;
@@ -70,8 +77,7 @@ graph_t graph_delete(graph_t g){
   int indice ;
   for(indice=0;indice<g.size_vertices;indice++){
     listedge_delete(g.data[indice].edges);
-    free(g.data[indice].ligne);
-    free(g.data[indice].nom);
+    vertex_delete(g.data[indice]);
   }
   free(g.data);
   return g;

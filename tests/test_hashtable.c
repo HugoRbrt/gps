@@ -4,7 +4,7 @@
 
 #include "tadhash.h"
 
-
+//pas de fuite memoire
 
 int main()
 {
@@ -25,5 +25,4 @@ int main()
   printf("la valeur associe a station_4 est : %d\n",value);
 
   t = hashtable_delete(t);
-  hashtable_print(t);
 }

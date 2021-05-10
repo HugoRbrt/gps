@@ -3,7 +3,7 @@
 #include <string.h>
 #include "space.h"
 
-
+//pas de fuite memoire
 
 int main(void)
 {
@@ -15,6 +15,7 @@ int main(void)
   printf("%d espaces.\n",nb_space);
   char* station = "station";
   station = add_space(station,nb_space);
+  free(station);
   printf("fonction pour ajouter nb_space espaces avant une chaine de caractère et un retour a la ligne a la fin :\n");
   printf("normalement affichage de '  station\n' :\n'%s' \n",station);
 }

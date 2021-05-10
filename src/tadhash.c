@@ -117,6 +117,7 @@ hashtable_t hashtable_delete(hashtable_t t) {
   {
     t.data[count] = list_hash_delete(t.data[count]);
   }
+  free(t.data);
 //tout est supprime on renvoie la table vide
   return t;
 }

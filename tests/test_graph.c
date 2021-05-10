@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
 #include "graph.h"
 
+//pas de fuite memoire
 
 int main(int argc, char** argv)
 {

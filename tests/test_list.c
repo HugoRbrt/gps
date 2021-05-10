@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
 #include "list.h"
 #include "graph.h"
 
+//pas de fuite memoire
 
 int main(int argc, char** argv)
 {
@@ -39,6 +39,9 @@ list_print(liste);puts("");
 
   puts("suppression de la liste");
   liste = list_delete(liste);
+  e1 = vertex_delete(e1);
+  e2 = vertex_delete(e2);
+  e3 = vertex_delete(e3);
   printf("affichage liste supprimé (normalement rien): ");
   list_print(liste);
   puts("");puts("*fin*");

@@ -1,18 +1,38 @@
-Le repertoire src doit contenir tous les fichiers sources .c (ici, f1.c, f2.c et le programme principal pccmain.c)
-Le répertorie include doit contenir tous les fichiers d'entete .h (icin f1.h, f2.h)
-Le répertoire tests doit contenir tous les fichiers de tests que vious avez fait (ici f2main.c et f1main.c)
-Le répertoire bin contiendra les executables et les tests (pccmain, f1main et f2main)
 
-make bin/pccmain pour construire le programme principal
-make bin/f1main pour constuire le programme de test f1main
-make bin/f2main pour constuire le programme de test f2main
+Merci de déposer tous les fichiers .txt dans le dossier "text".
+(Le fichier obj present ne doit pas être push, il est vide sur le depot gitlab est DOIT le rester) 
 
 
-Modifier le Makefile quand vous ajouter des fichiers de fonctions, de tests ou de programme
-Lorsque vous faites un nouveau fichier contenant des fonctions, ajouter le fichier .o correspodnant à la ligne OBJ=....
-Lorsque vous faites un nouveau fichier de tests, ajouter 3 lignes similaires à celles correspondant à $(BINDIR)/f1main:...
-Lorsque vous faites un nouveau programme, ajouter 3 lignes similaires à celles correspondant à $(BINDIR)/pccmain:...
+* Test des fonctions implémenté : 
+	-> tester la creation & gestion de graph : 
+		make bin/test_graph 
+		./bin/test_graph
+	-> tester la creation & gestion de liste : 
+		make bin/test_list
+		./bin/test_list
+	-> tester la creation & gestion de liste triée d'arcs: 
+		make bin/test_edge
+		./bin/test_edge
+	-> tester la creation & gestion de la table de hashage : 
+		make bin/test_hashtable
+		./bin/test_hashtable
+	-> tester l'ajout et la recherche d'espace dans une chaine de caractère (nécessaire pour la recherche de station par nom): 
+		make bin/test_space
+		./bin/test_space
+	-> tester l'ouverture & la lecture d'un fichier .txt : 
+		make bin/test_readprint
+		./bin/test_readprint
 
-Pour compiler il faut cree un dossier "obj" dans le porjet, mais il ne faut pas le push
+* Test de l'algorithme final : 
+	-> algorithme avec recherche par numero de station et affichage sur terminal
+		make bin/test_algo
+		./bin/test_algo
+	-> algorithme avec recherche par nom de station et affichage sur terminal
+		make bin/test_algohash
+		./bin/test_algohash
+	-> algorithme avec recherche par nom de station et affichage graphique (par SDL)
+		make bin/test_affichage
+		./bin/test_affichage
 
-TEST
+
+

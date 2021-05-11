@@ -21,13 +21,11 @@ char* add_space(char* mot, int nb_space)
 {
   int count = 0;
   int size = nb_space+1+strlen(mot);
-  char* new_word = calloc(size,sizeof(char));
   while(count<nb_space)
   {
-    strcat(new_word,"\t");
+    strcat(mot,"\t");
     count++;
   }
-  strcat(new_word,mot);
-  strcat(new_word,"\n"); // a rajouter ou pas ?
-  return new_word;
+  strcat(mot,"\n");
+  return mot;
 }

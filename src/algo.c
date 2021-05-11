@@ -323,13 +323,15 @@ int choix_int_algo(graph_t g)
 
 int choix_char_algo(graph_t g,hashtable_t* tab_station)
 {
-  int choix,res;
+  int choix,res,cout;
   char* depart=NULL;int num_depart;
   char* arrivee=NULL;int num_arrivee;
   printf("Choisissez l'algorithme a utiliser :\n1 : Dijkstra\n2 : A*\n");
-  scanf("%d",&choix);fgetc( stdin );
+  if(scanf("%d",&choix)==1){fgetc( stdin );}
+  else{choix = 0;}
   depart = malloc(128);
   arrivee = malloc(128);
+  res =0;
   if(choix==1)
   {
     puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
@@ -339,13 +341,13 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
     scanf( "%[^\n]", arrivee );puts("");fgetc( stdin );
     depart = add_space(depart,count_space(g.data[1].nom));
     arrivee = add_space(arrivee,count_space(g.data[1].nom));
-    if(!(hashtable_get_value(depart, &num_depart, *tab_station)&&hashtable_get_value(arrivee, &num_arrivee, *tab_station))){printf("une des station n'existe pas");exit(0);}
-
-    g = same_name(g,num_depart);
-    g = same_name(g,num_arrivee);
-    res = Dijkstra(num_depart,num_arrivee,g);
-    printf("resultat : %d",res);puts("");
-    free(depart);free(arrivee);
+    if(!(hashtable_get_value(depart, &num_depart, *tab_station)&&hashtable_get_value(arrivee, &num_arrivee, *tab_station))){printf("une des station n'existe pas");}
+    else{
+      g = same_name(g,num_depart);
+      g = same_name(g,num_arrivee);
+      res = Dijkstra(num_depart,num_arrivee,g);
+      printf("resultat : %d",res);puts("");
+    }
   }
 
   else if(choix==2)
@@ -364,14 +366,11 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
     g = same_name(g,num_arrivee);
     res = Astar(num_depart,num_arrivee,g);
     printf("resultat : %d",res);puts("");
-    free(depart);free(arrivee);
   }
   else{printf("Error : wrong input");exit(0);}
-  if(res==1){printf("Chemin le plus court : ");print_chemin(num_depart,num_arrivee,g);}
-
-  puts("suppression graph et liste...");
-  //fonction a ne pas oublier après : fclose(f)
-  int cout = g.data[num_arrivee].cout;
+  if(res==1){printf("Chemin le plus court : ");print_chemin(num_depart,num_arrivee,g); cout = g.data[num_arrivee].cout;}
+  else{cout = -1;}
+  free(depart);free(arrivee);
   return cout;
 }
 

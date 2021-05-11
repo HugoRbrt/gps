@@ -5,6 +5,8 @@
 #include <string.h>
 #include <float.h>
 
+//pas de fuite memoire
+
 int main(int argc, char** argv)
 {
   //initialisation des elements

@@ -385,10 +385,10 @@ int choix_char_algo_affichage(graph_t g,double max_x,double max_y,double min_x,d
   arrivee = malloc(128);
   if(choix==1)
   {
-    puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
+    puts("DEBUT A*");printf("Choisissez le nom de la station depart : ");
     scanf( "%[^\n]", depart );
     fgetc( stdin );
-    printf("Choisissez le numero de la station arrivee : ");
+    printf("Choisissez le nom de la station arrivee : ");
     scanf( "%[^\n]", arrivee );puts("");fgetc( stdin );
     depart = add_space(depart,count_space(g.data[1].nom));
     arrivee = add_space(arrivee,count_space(g.data[1].nom));
@@ -403,14 +403,13 @@ int choix_char_algo_affichage(graph_t g,double max_x,double max_y,double min_x,d
 
   else if(choix==2)
   {
-    puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
+    puts("DEBUT A*");printf("Choisissez le nom de la station depart : ");
     scanf( "%[^\n]", depart );
     fgetc( stdin );
-    printf("Choisissez le numero de la station arrivee : ");
+    printf("Choisissez le nom de la station arrivee : ");
     scanf( "%[^\n]", arrivee );puts("");fgetc( stdin );
     depart = add_space(depart,count_space(g.data[5].nom));
     arrivee = add_space(arrivee,count_space(g.data[5].nom));
-
     if(!(hashtable_get_value(depart, &num_depart, *tab_station)&&hashtable_get_value(arrivee, &num_arrivee, *tab_station))){printf("une des station n'existe pas");exit(0);}
 
     g = same_name(g,num_depart);

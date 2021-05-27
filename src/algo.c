@@ -316,6 +316,7 @@ int choix_int_algo(graph_t g)
   }
   else{printf("Error : wrong input");exit(0);}
   if(res==1){printf("Chemin le plus court : ");print_chemin(depart,arrivee,g);}
+  else{printf("pas de chemin possible\n");}
   puts("suppression graph et liste..."); //suppresion du graphe
   //fonction a ne pas oublier après : fclose(f)
   return g.data[arrivee].cout;
@@ -334,10 +335,10 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
   res =0;
   if(choix==1)
   {
-    puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
+    puts("DEBUT DIJKSTRA");printf("Choisissez le nom de la station depart : ");
     scanf( "%[^\n]", depart );
     fgetc( stdin );
-    printf("Choisissez le numero de la station arrivee : ");
+    printf("Choisissez le nom de la station arrivee : ");
     scanf( "%[^\n]", arrivee );puts("");fgetc( stdin );
     depart = add_space(depart,count_space(g.data[1].nom));
     arrivee = add_space(arrivee,count_space(g.data[1].nom));
@@ -352,10 +353,10 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
 
   else if(choix==2)
   {
-    puts("DEBUT A*");printf("Choisissez le numero de la station depart : ");
+    puts("DEBUT A*");printf("Choisissez le nom de la station depart : ");
     scanf( "%[^\n]", depart );
     fgetc( stdin );
-    printf("Choisissez le numero de la station arrivee : ");
+    printf("Choisissez le nom de la station arrivee : ");
     scanf( "%[^\n]", arrivee );puts("");fgetc( stdin );
     depart = add_space(depart,count_space(g.data[5].nom));
     arrivee = add_space(arrivee,count_space(g.data[5].nom));

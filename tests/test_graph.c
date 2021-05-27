@@ -24,9 +24,9 @@ int main(int argc, char** argv)
   puts("affichage graph rempli:");
   graph_print(g);puts("");
 
-  printf("recherche de n (devrait afficher 0) : %d",graph_recherche("n",g));
+  printf("numero de sommet de nom n (devrait afficher 0) : %d",graph_recherche("n",g));
   puts("");
-  printf("recherche de n0 (devrait afficher -1) : %d",graph_recherche("n0",g));
+  printf("numero de sommet de nom n0 (devrait afficher -1 qui signifie qu'il n'y en a pas) : %d",graph_recherche("n0",g));
   puts("");
   puts("suppression graph...");
   g = graph_delete(g);

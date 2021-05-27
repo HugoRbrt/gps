@@ -5,16 +5,16 @@
 #include "tadhash.h"
 #include "algo.h"
 
-int main()
+int main(int argc, char* argv[])
 {
   //declaration de variables
   double max_x = 0;
   double max_y = 0;
   double min_x = DBL_MAX;
   double min_y = DBL_MAX;
-  FILE* f = fopen("text/metroetu.txt","r");
+  FILE* f = fopen(argv[1],"r");
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
-  hashtable_t tab_station = hashtable_new(30);
+  hashtable_t tab_station = hashtable_new(700);
   int nb_space;
   graph_t g;
   //creation de la fenetre,

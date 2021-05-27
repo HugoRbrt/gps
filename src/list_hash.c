@@ -46,7 +46,7 @@ void list_hash_print(list_hash_t l) {
     element_print( p->val );
     printf( " " );
   }
-  printf(")\n");
+  printf(") ");
 }
 
 int list_hash_length(list_hash_t l) {

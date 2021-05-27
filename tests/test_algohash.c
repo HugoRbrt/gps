@@ -7,13 +7,13 @@
 
 //pas de fuite memoire
 
-int main(int argc, char** argv)
+int main(int argc, char* argv[])
 {
   FILE* f;
   int nb_space;
   graph_t g;
   hashtable_t tab_station = hashtable_new(30); //(choix de 30 arbitraire)
-  f=fopen("text/metroetu.txt","r");
+  f=fopen(argv[1],"r");
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
 
   //creation du graph :

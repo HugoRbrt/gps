@@ -61,6 +61,6 @@ int main(int argc, char** argv)
   g = graph_delete(g);
 
   puts("*fin*");
-  free(line);free(name);free(*line);free(*name);
+  free(line);free(name);
   fclose(f);
 }

@@ -7,7 +7,7 @@
 
 //pas de fuite memoire
 
-int main(int argc, char** argv)
+int main(int argc, char* argv[])
 {
   //initialisation des elements
   int depart,arrivee,count,choix,res=0;
@@ -20,7 +20,7 @@ int main(int argc, char** argv)
   char mot[512] ;
   graph_t g;
   //ouverture fichier et allocation tableaux char
-  f=fopen("text/graphe1.txt","r");
+  f=fopen(argv[1],"r");
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
   fscanf(f,"%d %d ",&nbsommet,&nbarcs);
   fgets(mot,511,f);

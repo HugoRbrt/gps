@@ -124,10 +124,10 @@ hashtable_t hashtable_delete(hashtable_t t) {
 
 void hashtable_print(hashtable_t t) {
   int count;
-  printf("[\n");
+  printf("[  ");
   for(count = 0; count < t.size ;count++)
   {
     list_hash_print(t.data[count]);
   }
-  printf("] ");
+  printf("  ] ");
 }

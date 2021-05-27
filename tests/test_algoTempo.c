@@ -6,6 +6,8 @@
 #include <float.h>
 #include <time.h>
 
+//fonction comme le test_algo mais avec 20 itérations$
+//et compteur d'horloge pour étudier l'efficacité de nos fonctions
 int main(int argc, char* argv[])
 {
   //initialisation des elements
@@ -70,13 +72,14 @@ int main(int argc, char* argv[])
     //if(res==1){printf("Chemin le plus court : ");print_chemin(depart,arrivee,g);}
     g = graph_delete(g);
     free(*line);free(line);free(*name);free(name);
+    //mesure & affichage du temps pour une recherche
     cl = clock()-cl;
     printf("\n temps essai numero %d : %lf",compteur,cl/(double)CLOCKS_PER_SEC);
     moyenne_temps +=cl;
       fclose(f);
   }
+  //affichage temps moyen
   moyenne_temps = moyenne_temps/(nbtests-1);
-
   printf("\n  ->temps moyen : %lf<-  \n",moyenne_temps/(double)CLOCKS_PER_SEC);
   puts("*fin*");
 }

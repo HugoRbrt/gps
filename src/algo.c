@@ -174,6 +174,53 @@ void affichage_chemin(int depart, int arrivee,double max_x,double max_y,double m
   SDL_PH_FlushWindow(f1);
 }
 
+//retourne le graph construit
+graph_t creation_graph_sans_table(FILE* f,int* nb_espace)
+{
+  int nbsommet,numero,nbarcs,indice,noeud_dep, noeud_arriv;
+  char mot[512] ;
+  char** line;
+  char** name;
+  graph_t g;
+  double val;
+  double lat,longi ;
+  fscanf(f,"%d %d ",&nbsommet,&nbarcs);
+  fgets(mot,511,f);
+  line =  calloc(nbsommet,sizeof(*line));
+  if (line==NULL) { printf("erreur alloaction tableau de char line\n"); exit(EXIT_FAILURE);}
+  *line = calloc(nbsommet*128,sizeof(**line));
+  if (*line==NULL) { printf("erreur alloaction tableau de char *name\n");free(line); exit(EXIT_FAILURE);}
+  name =  calloc(nbsommet,sizeof(*name));
+  if (name==NULL) { printf("erreur alloaction tableau de char name\n"); exit(EXIT_FAILURE);}
+  *name = calloc(nbsommet*128,sizeof(**name));
+  if (*name==NULL) { printf("erreur alloaction tableau de char *name\n");free(name); exit(EXIT_FAILURE);}
+  g = graph_new(nbsommet,nbarcs);
+  for(indice=1;indice<nbsommet;indice++)
+  {
+    name[indice]=name[indice-1]+128;
+    line[indice]=line[indice-1]+128;
+  }
+  for(indice=0;indice<nbsommet;indice++)                 //Boucle pour rensigner les sommets dans le graph
+  {
+    fscanf(f,"%d %lf %lf %s", &numero, &lat, &longi, line[indice]);
+    fgets(name[indice],128,f);
+    if (mot[strlen(mot)-1]<32) mot[strlen(mot)-1]=0;
+    g.data[indice] = vertex_new(numero, line[indice], longi, lat,name[indice]);
+  }
+  fgets(mot,511,f);
+  for(indice=0;indice<g.size_egdes;indice++)                  //Boucle pour rensigner les arcs dans le graph
+  {
+    fscanf(f,"%d %d %lf ",&noeud_dep,&noeud_arriv,&val);
+    g.data[noeud_dep].edges = listedge_add(edge_new(noeud_arriv,(double)val),g.data[noeud_dep].edges );
+  }
+  for(indice=0;indice<g.size_vertices;indice++)                //renseigne la longueur des listes
+  {
+    g.data[indice].sizeedges = listedge_size(g.data[indice].edges);
+  }
+    free(*line);free(line);free(*name);free(name);
+    return g;
+}
+
 //retourne le graph construit et prend en fonction la hashtable
 graph_t creation_graph(FILE* f,hashtable_t* tab_station, int* nb_espace)
 {
@@ -227,7 +274,7 @@ graph_t creation_graph(FILE* f,hashtable_t* tab_station, int* nb_espace)
   }
   free(*name);
   free(*line);
-  free(line);      //possiblement faux (a verifier sur linux)
+  free(line);
   free(name);
   return g;
 }

@@ -61,7 +61,7 @@ $(BINDIR)/test_graph :$(OBJDIR)/graph.o $(OBJDIR)/arc.o $(OBJDIR)/test_graph.o
 $(BINDIR)/test_list :$(OBJDIR)/graph.o $(OBJDIR)/arc.o $(OBJDIR)/list.o $(OBJDIR)/test_list.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-$(BINDIR)/test_readprint : $(OBJDIR)/graph.o $(OBJDIR)/arc.o  $(OBJDIR)/test_readprint.o
+$(BINDIR)/test_readprint : $(OBJ)  $(OBJDIR)/test_readprint.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 	#pour construire le test test_edge qui utilise arc.o

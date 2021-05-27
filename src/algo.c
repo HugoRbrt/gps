@@ -396,6 +396,8 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
       res = Dijkstra(num_depart,num_arrivee,g);
       printf("resultat : %d",res);puts("");
     }
+    free (arrivee);
+    free(depart);
   }
 
   else if(choix==2)
@@ -414,11 +416,12 @@ int choix_char_algo(graph_t g,hashtable_t* tab_station)
     g = same_name(g,num_arrivee);
     res = Astar(num_depart,num_arrivee,g);
     printf("resultat : %d",res);puts("");
+    free (arrivee);
+    free(depart);
   }
   else{printf("Error : wrong input");exit(0);}
   if(res==1){printf("Chemin le plus court : ");print_chemin(num_depart,num_arrivee,g); cout = g.data[num_arrivee].cout;}
   else{cout = -1;}
-  free(depart);free(arrivee);
   return cout;
 }
 

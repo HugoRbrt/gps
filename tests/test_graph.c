@@ -15,8 +15,6 @@ int main(int argc, char** argv)
   puts("affichage vertex e1 :");
   vertex_print(e2);puts("");
 
-  puts("affichage graph initialise:");
-  graph_print(g);puts("");
 
   g.data[0]=e1;
   g.data[1]=e2;

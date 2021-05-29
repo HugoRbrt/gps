@@ -1,3 +1,5 @@
+#ifndef _ALGO_H
+#define _ALGO_H
 #include "graph.h"
 #include "list.h"
 #include "arc.h"
@@ -9,6 +11,8 @@
 #include <string.h>
 #include <float.h>
 #include <SDL2/SDL_phelma.h>
+//ce fichier recense toutes les fonctions primordiales pour le bon fonctionnement de nos test finaux
+//la création du graph_t, le choix de l'lgo (Dijkstra/A*, recherche par numero/nom), affichage du chemin graphique ou non
 
 //retourne le graph d'un fichier texte
 graph_t creation_graph_sans_table(FILE* f,int* nb_espace);
@@ -42,3 +46,4 @@ graph_t same_name(graph_t g, int numero);
 void print_chemin(int depart, int arrivee, graph_t g);
 //pareil mais avec une fenetre graphique
 void affichage_chemin(int depart, int arrivee,double max_x,double max_y,double min_x,double min_y, graph_t g,SDL_PHWindow* f1);
+#endif

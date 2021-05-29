@@ -21,7 +21,8 @@ int main(int argc, char* argv[])
   char** name;
   char mot[512] ;
   graph_t g;
-  int nbtests = 20;
+  int nbtests = -1;
+  while(nbtests <1){printf("Entrez le nombre d'essais à réaliser :");scanf("%d",&nbtests);}
   //ouverture fichier et allocation tableaux char
   f=fopen(argv[1],"r");
   if (f==NULL) { printf("Impossible d’ouvrir le fichier\n"); exit(EXIT_FAILURE);}
@@ -79,7 +80,8 @@ int main(int argc, char* argv[])
       fclose(f);
   }
   //affichage temps moyen
-  moyenne_temps = moyenne_temps/(nbtests-1);
+  printf("\n\n  ->temps total : %lf<-  ",moyenne_temps/(double)CLOCKS_PER_SEC);
+  if(nbtests!=1){moyenne_temps = moyenne_temps/(nbtests-1);}
   printf("\n  ->temps moyen : %lf<-  \n",moyenne_temps/(double)CLOCKS_PER_SEC);
   puts("*fin*");
 }

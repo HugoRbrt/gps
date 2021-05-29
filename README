@@ -1,9 +1,9 @@
 
 Merci de déposer tous les fichiers .txt dans le dossier "text".
-(Le fichier obj et text present ne doivent pas être push, il sont vide sur le depot gitlab est DOIVENT le rester)
+(Les fichiers obj et text present ne doivent pas être push, il sont vide sur le depot gitlab est DOIVENT le rester)
 
-! Pour des raisons d'optimisation, les algorithmes tel que grapheNewYork est trop long à traiter
-
+! Pour des raisons d'optimisation, les algorithmes tel que grapheUSAOuest sont trop long à traiter !
+Nous considerons que le programme final (efficace sur tout les fichiers donc sans affichage graphique) est le programme test_algohash
 
 * Test des fonctions implémenté :
 	-> tester la creation & gestion de graph :
@@ -25,14 +25,14 @@ Merci de déposer tous les fichiers .txt dans le dossier "text".
 		make bin/test_readprint
 		./bin/test_readprint
 
-* Test de l'algorithme final (avec le fichier graphe1.c ici, modifiable par d'autres fichiers): 
-	-> algorithme avec recherche par numero de station et affichage sur terminal
+* Test de l'algorithme final (avec le fichier graphe1.c ici, modifiable par d'autres fichiers):
+	-> algorithme avec recherche par NUMERO de station et affichage sur TERMINAL
 		make bin/test_algo
 		./bin/test_algo text/graphe1.txt
-	-> algorithme avec recherche par nom de station et affichage sur terminal
+	-> algorithme avec recherche par NOM de station et affichage sur TERMINAL
 		make bin/test_algohash
 		./bin/test_algohash text/graphe1.txt
-	-> algorithme avec recherche par nom de station et affichage graphique (par SDL)
+	-> algorithme avec recherche par NOM de station et affichage GRAPHIQUE (par SDL)
 		make bin/test_affichage
 		./bin/test_affichage text/graphe1.txt
 	->algorithme de test de performance par numero de station choisis au hasard

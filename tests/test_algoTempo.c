@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
       while(compteur2<nbtests+1)
       {
         cl = clock();
-        res = Dijkstra(3245,32456,g);
+        res = Dijkstra(random() * g.size_vertices/RAND_MAX,random() * g.size_vertices/RAND_MAX,g);
         cl = clock()- cl;
         //mesure & affichage du temps pour une recherche
         printf("\nrecherche Dijkstra n°%d : %lf",compteur2,cl/(double)CLOCKS_PER_SEC);
@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
       while(compteur2<nbtests+1)
       {
         cl = clock();
-        //res = Dijkstra(random() * g.size_vertices/RAND_MAX,random() * g.size_vertices/RAND_MAX,g);
+        res = Astar(random() * g.size_vertices/RAND_MAX,random() * g.size_vertices/RAND_MAX,g);
         cl = clock()- cl;
         //mesure & affichage du temps pour une recherche
         printf("\nrecherche A* n°%d : %lf",compteur2,cl/(double)CLOCKS_PER_SEC);

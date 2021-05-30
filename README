@@ -36,5 +36,5 @@ Nous considerons que le programme final (efficace sur tout les fichiers donc san
 		make bin/test_affichage
 		./bin/test_affichage text/graphe1.txt
 	->algorithme de test de performance par numero de station choisis au hasard
-	make bin/test_algoTempo
-	./bin/test_algoTempo text/graphe1.txt
+		make bin/test_algoTempo
+		./bin/test_algoTempo text/graphe1.txt
